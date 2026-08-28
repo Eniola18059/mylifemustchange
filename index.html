@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Rule — Aug 2026 → Aug 2028</title>
+<title>The Rule — Aug 29, 2026 → Aug 29, 2028</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -56,6 +56,30 @@
     letter-spacing:-0.01em;
   }
   .subtitle{color:var(--text-dim);font-size:14px;}
+
+  .cdown-row{
+    display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+    margin-top:16px;padding:14px 18px;
+    background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);
+  }
+  .cdown-unit{display:flex;align-items:baseline;gap:5px;}
+  .cdown-n{
+    font-family:'Fraunces',serif;font-weight:700;font-size:26px;color:var(--gold);
+    line-height:1;
+  }
+  .cdown-u{
+    font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;
+    text-transform:uppercase;color:var(--text-dimmer);
+  }
+  .cdown-label{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);
+    margin-left:auto;
+  }
+  @media(max-width:480px){
+    .cdown-row{padding:12px;gap:10px;}
+    .cdown-n{font-size:20px;}
+    .cdown-label{margin-left:0;width:100%;order:5;}
+  }
 
   nav.tabs{
     display:flex;gap:4px;overflow-x:auto;
@@ -247,9 +271,16 @@
 <div class="wrap">
 
   <header class="top">
-    <span class="eyebrow">The Rule &nbsp;·&nbsp; Aug 2026 → Aug 2028</span>
+    <span class="eyebrow">The Rule &nbsp;·&nbsp; Aug 29, 2026 → Aug 29, 2028</span>
     <h1 class="title">Ministry, money, and the work — in one place.</h1>
     <div class="subtitle">Not a document you'll rebuild for the sixth time. A dashboard you check.</div>
+    <div class="cdown-row" id="cdownRow">
+      <div class="cdown-unit"><span class="cdown-n" id="cd-d">—</span><span class="cdown-u">Days</span></div>
+      <div class="cdown-unit"><span class="cdown-n" id="cd-h">—</span><span class="cdown-u">Hrs</span></div>
+      <div class="cdown-unit"><span class="cdown-n" id="cd-m">—</span><span class="cdown-u">Min</span></div>
+      <div class="cdown-unit"><span class="cdown-n" id="cd-s">—</span><span class="cdown-u">Sec</span></div>
+      <div class="cdown-label">until Aug 29, 2028</div>
+    </div>
   </header>
 
   <nav class="tabs" id="tabs">
@@ -459,6 +490,35 @@
       <div class="rule-block" style="margin-top:16px;">
         <b>Rough retainer math:</b> at an average retainer of ₦75k–100k/client/month, hitting the M19–24 target needs roughly 8–12 active retainer clients, or fewer if project margins stay healthy alongside them. That's the number to actually track — not the profit figure itself.
       </div>
+    </div>
+    <div class="panel">
+      <h2>Learn to drive</h2>
+      <div class="desc">Light on time, easy to fit around everything else — doesn't need its own weekday slot.</div>
+      <div class="facts">
+        <div class="fact-row"><span class="k">Target: license obtained by</span><span class="v">~Month 5 (Jan 2027)</span></div>
+        <div class="fact-row"><span class="k">Time cost</span><span class="v">2–3 lessons/week, weekends or evenings</span></div>
+      </div>
+      <ul class="checklist" style="list-style:none;padding:0;margin-top:10px;">
+        <li style="padding:8px 0;border-bottom:1px dashed var(--border);font-size:13.5px;color:var(--text-dim);">Enroll with a licensed driving school — don't self-teach for the test itself</li>
+        <li style="padding:8px 0;border-bottom:1px dashed var(--border);font-size:13.5px;color:var(--text-dim);">2–3 practice sessions/week until comfortable with traffic, not just the empty lot</li>
+        <li style="padding:8px 0;font-size:13.5px;color:var(--text-dim);">Book the test once your instructor confirms readiness, not on a fixed date regardless</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2>Net worth — 2-year trajectory</h2>
+      <div class="desc">Base case, built only from the agency profit targets already set. This is modeling off your own numbers, not financial advice — real months will beat this or miss it.</div>
+      <div class="quarter"><span class="qtag">Now</span><div class="qbody">Starting point: <b>~–₦1.5m</b> (the debt). Nothing hidden here — this is the honest floor.</div></div>
+      <div class="quarter"><span class="qtag">M6</span><div class="qbody">Debt cleared, laptop bought. Net worth back to roughly <b>₦0</b> — the real win here is the reset, not a number.</div></div>
+      <div class="quarter"><span class="qtag">M12</span><div class="qbody">6 months of ~25% saved on a growing profit line. Net worth around <b>~₦700k–900k</b>.</div></div>
+      <div class="quarter"><span class="qtag">M18</span><div class="qbody">Saving rate holding, profit line up. Net worth around <b>~₦1.8m–2.2m</b>.</div></div>
+      <div class="quarter"><span class="qtag">M24</span><div class="qbody">Base case (agency only): <b>~₦3.5m–4m</b>. Stretch case, if the remote role lands on the Goals timeline: meaningfully higher, but that's a second income stream layering on top, not a guarantee — track it separately once it's real income, not before.</div></div>
+    </div>
+
+    <div class="panel">
+      <h2>Major milestones</h2>
+      <div class="desc">The big checkpoints across the full 2 years, in one place.</div>
+      <ul class="checklist" id="milestoneChecklist"></ul>
     </div>
   </div>
 
@@ -675,6 +735,46 @@
   <!-- ROADMAP -->
   <div class="view" id="view-roadmap">
     <div class="panel">
+      <h2>The three phases</h2>
+      <div class="desc">Zoomed out — what the 2 years actually look like in three chapters, not eight quarters.</div>
+      <div class="pillar-grid">
+        <div class="pillar-card ministry">
+          <span class="fixed-note">Aug 2026 – Apr 2027 (M1–8)</span>
+          <h3>Foundation</h3>
+          <ul>
+            <li>Debt cleared, laptop bought — the financial reset happens here</li>
+            <li>Driving license obtained</li>
+            <li>Python foundation solid, fasting/evangelism rhythm fully locked in</li>
+            <li>2–3 retainer clients signed, agency systems (deposit, testimonials, pipeline) running</li>
+            <li>Net worth back to roughly ₦0 — not a loss, a reset</li>
+          </ul>
+        </div>
+        <div class="pillar-card career">
+          <span class="fixed-note" style="color:#D98A97;">May 2027 – Dec 2027 (M9–16)</span>
+          <h3>Momentum</h3>
+          <ul>
+            <li>Capstone #1 live, applications to remote roles begin</li>
+            <li>Masters (part-time) starts</li>
+            <li>4–6 retainers running, profit climbing toward ~₦650k/mo</li>
+            <li>Reading/SE-CS/French/accent habits fully automatic, not effortful</li>
+            <li>Net worth crosses ~₦1.5m–2m</li>
+          </ul>
+        </div>
+        <div class="pillar-card body">
+          <span class="fixed-note" style="color:#8FC7B3;">Jan 2028 – Aug 2028 (M17–24)</span>
+          <h3>Harvest</h3>
+          <ul>
+            <li>Capstones #2 and #3 live, remote role landed or agency at target income</li>
+            <li>8–12 retainer clients, profit at realistic ceiling (~₦700k–1.2m/mo)</li>
+            <li>Masters coursework steady alongside everything else</li>
+            <li>Net worth around ₦3.5m–4m base case</li>
+            <li>The identity shift is complete — this is just who you are now, not a project anymore</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
       <h2>Quarterly checkpoints</h2>
       <div class="desc">Eight quarters, three lanes: money, career, ministry/body.</div>
       <div class="quarter"><span class="qtag">Q1</span><div class="qbody"><b>Aug–Oct '26</b> — 2+ retainer clients signed, income tracked weekly. Python foundation continues at adjusted pace. Fasting/evangelism rhythm holding, training habit formed.</div></div>
@@ -739,6 +839,7 @@ let clientPipeline = [];
 let appLog = [];
 let bookLog = [];
 let csBookLog = [];
+let milestoneState = {};
 
 const CHECKLIST_ITEMS = [
   {id:'retainer', text:'Pushed retainer conversion with at least 1 client this week'},
@@ -746,6 +847,20 @@ const CHECKLIST_ITEMS = [
   {id:'training', text:'3 training sessions logged'},
   {id:'reflection', text:'Sunday 10-minute reflection done'},
   {id:'income', text:"This month's income logged in the Money tab"},
+];
+
+const MILESTONE_ITEMS = [
+  {id:'debt', text:'Debt cleared (₦1.5m)'},
+  {id:'laptop', text:'Laptop bought'},
+  {id:'license', text:'Driving license obtained'},
+  {id:'capstone1', text:'Capstone #1 live and deployed'},
+  {id:'applying', text:'Started applying for remote roles'},
+  {id:'masters', text:'Masters enrollment started'},
+  {id:'capstone2', text:'Capstone #2 live and deployed'},
+  {id:'retainers8', text:'8+ active retainer clients'},
+  {id:'capstone3', text:'Capstone #3 live and deployed'},
+  {id:'job', text:'Remote role landed'},
+  {id:'networth', text:'Net worth ₦3.5m+ reached'},
 ];
 
 async function loadState(){
@@ -792,6 +907,7 @@ async function loadState(){
     {title:'Designing Data-Intensive Applications — Martin Kleppmann', status:'Up next'},
     {title:'Site Reliability Engineering — Google', status:'Up next'},
   ]);
+  milestoneState = await getStore('milestone-state', {});
 }
 
 // ---- Today tab ----
@@ -877,8 +993,8 @@ function renderToday(){
   ring.style.background = `conic-gradient(var(--gold) ${pct}%, var(--panel2) ${pct}%)`;
 
   // deadlines
-  const laptopDeadline = new Date(2026, 11, 28); // Dec 28 2026
-  const debtDeadline = new Date(2027, 1, 28); // Feb 28 2027
+  const laptopDeadline = new Date(2026, 11, 29); // Dec 29 2026 — 4 months from Aug 29 2026
+  const debtDeadline = new Date(2027, 1, 29); // ~6 months from Aug 29 2026 (rolls to Mar 1, 2027 — 2027 isn't a leap year)
   const msDay = 1000*60*60*24;
   const laptopDays = Math.ceil((laptopDeadline - now)/msDay);
   const debtDays = Math.ceil((debtDeadline - now)/msDay);
@@ -888,7 +1004,7 @@ function renderToday(){
 
 function renderGoals(){
   const now = new Date();
-  const jobDeadline = new Date(2027, 7, 28); // 12 months from Aug 28 2026
+  const jobDeadline = new Date(2027, 7, 29); // 12 months from Aug 29 2026
   const msDay = 1000*60*60*24;
   const jobDays = Math.ceil((jobDeadline - now)/msDay);
   document.getElementById('jobTargetDate').textContent = jobDeadline.toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
@@ -1199,6 +1315,26 @@ document.getElementById('resetWeekBtn').addEventListener('click', async ()=>{
   renderChecklist();
 });
 
+function renderMilestones(){
+  const ul = document.getElementById('milestoneChecklist');
+  if(!ul) return;
+  ul.innerHTML = '';
+  MILESTONE_ITEMS.forEach(item=>{
+    const li = document.createElement('li');
+    const checked = !!milestoneState[item.id];
+    li.innerHTML = `
+      <input type="checkbox" id="ms-${item.id}" ${checked ? 'checked' : ''}>
+      <label for="ms-${item.id}" class="${checked ? 'done' : ''}">${item.text}</label>
+    `;
+    ul.appendChild(li);
+    li.querySelector('input').addEventListener('change', async (e)=>{
+      milestoneState[item.id] = e.target.checked;
+      await setStore('milestone-state', milestoneState);
+      renderMilestones();
+    });
+  });
+}
+
 // ---- Render all ----
 function renderAll(){
   renderToday();
@@ -1211,6 +1347,26 @@ function renderAll(){
   renderPipeline();
   renderBooks();
   renderCsBooks();
+  renderMilestones();
+}
+
+// ---- 2-year countdown ----
+function updateCountdown(){
+  const end = new Date(2028, 7, 29, 0, 0, 0); // Aug 29, 2028
+  const now = new Date();
+  const diff = end - now;
+  if(diff <= 0){
+    ['cd-d','cd-h','cd-m','cd-s'].forEach(id=>{ document.getElementById(id).textContent = '0'; });
+    return;
+  }
+  const d = Math.floor(diff/(1000*60*60*24));
+  const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+  const m = Math.floor((diff%(1000*60*60))/(1000*60));
+  const s = Math.floor((diff%(1000*60))/1000);
+  document.getElementById('cd-d').textContent = d;
+  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+  document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
 }
 
 (async function init(){
@@ -1220,6 +1376,8 @@ function renderAll(){
   setupEvangPicker();
   renderAll();
   setInterval(renderToday, 60000);
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
 })();
 </script>
 </body>
