@@ -3,880 +3,1224 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flash — 2 Year Blueprint</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Syne+Mono&family=Lora:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<title>The Rule — Aug 2026 → Aug 2028</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:     #080909;
-  --bg2:    #0E1010;
-  --bg3:    #141616;
-  --bg4:    #1C1E1E;
-  --bg5:    #242626;
-  --gold:   #D4A843;
-  --gold2:  #ECC96A;
-  --goldd:  #7A5E20;
-  --text:   #E0D8C8;
-  --dim:    #807868;
-  --muted:  #403830;
-  --red:    #C03828;
-  --green:  #28784A;
-  --blue:   #284870;
-  --cream:  #F0E8D4;
-}
-*{margin:0;padding:0;box-sizing:border-box;}
-html{scroll-behavior:smooth;}
-body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;overflow-x:hidden;}
-::-webkit-scrollbar{width:2px;}
-::-webkit-scrollbar-thumb{background:var(--goldd);}
+  :root{
+    --bg:#12141C;
+    --panel:#1B1F2B;
+    --panel2:#212637;
+    --text:#EAE4D8;
+    --text-dim:#9C978A;
+    --text-dimmer:#6D6A61;
+    --gold:#C9A24B;
+    --gold-soft:rgba(201,162,75,0.14);
+    --wine:#8C3E4C;
+    --wine-soft:rgba(140,62,76,0.16);
+    --teal:#4C8C79;
+    --teal-soft:rgba(76,140,121,0.16);
+    --border:#2A2F40;
+    --radius:10px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(201,162,75,0.06), transparent 60%),
+      radial-gradient(1000px 700px at 100% 0%, rgba(140,62,76,0.07), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:28px 18px 80px;}
 
-/* noise */
-body::after{content:'';position:fixed;inset:0;opacity:.3;pointer-events:none;z-index:9999;
-background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");}
+  header.top{
+    display:flex;flex-direction:column;gap:4px;
+    margin-bottom:24px;
+    border-bottom:1px solid var(--border);
+    padding-bottom:20px;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--gold);
+  }
+  h1.title{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:clamp(28px,6vw,42px);
+    margin:2px 0 4px;
+    letter-spacing:-0.01em;
+  }
+  .subtitle{color:var(--text-dim);font-size:14px;}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:400;display:flex;justify-content:space-between;align-items:center;padding:14px 48px;background:rgba(8,9,9,.97);border-bottom:1px solid rgba(212,168,67,.1);backdrop-filter:blur(20px);}
-.nav-brand{font-family:'Syne Mono',monospace;font-size:.75rem;color:var(--gold);letter-spacing:.12em;}
-.nav-live{display:flex;align-items:center;gap:8px;font-family:'Syne Mono',monospace;font-size:.65rem;color:var(--dim);}
-.nav-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
-.nav-links{display:flex;gap:20px;list-style:none;}
-.nav-links a{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;font-weight:600;}
-.nav-links a:hover{color:var(--gold);}
-@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+  nav.tabs{
+    display:flex;gap:4px;overflow-x:auto;
+    margin-bottom:22px;
+    border-bottom:1px solid var(--border);
+    scrollbar-width:none;
+  }
+  nav.tabs::-webkit-scrollbar{display:none;}
+  nav.tabs button{
+    flex:0 0 auto;
+    background:none;border:none;
+    color:var(--text-dim);
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;letter-spacing:0.04em;text-transform:uppercase;
+    padding:10px 14px;cursor:pointer;
+    border-bottom:2px solid transparent;
+    transition:color .15s, border-color .15s;
+    white-space:nowrap;
+  }
+  nav.tabs button:hover{color:var(--text);}
+  nav.tabs button.active{color:var(--gold);border-bottom-color:var(--gold);}
 
-/* HERO */
-.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden;}
-.hero-left{display:flex;flex-direction:column;justify-content:flex-end;padding:120px 48px 72px;position:relative;z-index:2;}
-.hero-right{display:flex;flex-direction:column;justify-content:center;padding:120px 48px 72px;border-left:1px solid rgba(212,168,67,.08);position:relative;}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(212,168,67,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(212,168,67,.025) 1px,transparent 1px);background-size:56px 56px;}
-.hero-glow{position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(212,168,67,.07),transparent 70%);right:-100px;top:50%;transform:translateY(-50%);pointer-events:none;}
-.htag{font-family:'Syne Mono',monospace;font-size:.6rem;letter-spacing:.35em;color:var(--goldd);text-transform:uppercase;margin-bottom:16px;opacity:0;animation:up .6s .1s forwards;}
-.hname{font-family:'Lora',serif;font-size:clamp(1rem,2vw,1.3rem);font-style:italic;color:var(--dim);margin-bottom:8px;opacity:0;animation:up .6s .2s forwards;}
-.htitle{font-family:'Syne',sans-serif;font-size:clamp(4rem,9vw,8.5rem);font-weight:800;line-height:.88;letter-spacing:-.03em;margin-bottom:32px;opacity:0;animation:up .7s .3s forwards;}
-.htitle .l1{display:block;color:var(--cream);}
-.htitle .l2{display:block;color:var(--gold);}
-.htitle .l3{display:block;color:transparent;-webkit-text-stroke:1px rgba(212,168,67,.3);}
-.hquote{font-family:'Lora',serif;font-size:1rem;font-style:italic;color:var(--dim);line-height:1.65;border-left:2px solid var(--goldd);padding-left:16px;max-width:380px;opacity:0;animation:up .6s .45s forwards;}
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:22px;
+    margin-bottom:16px;
+  }
+  .panel h2{
+    font-family:'Fraunces',serif;font-weight:600;
+    font-size:20px;margin:0 0 4px;
+  }
+  .panel .desc{color:var(--text-dim);font-size:13.5px;margin-bottom:16px;line-height:1.55;}
 
-/* COUNTDOWN CARD */
-.cdown-card{background:var(--bg3);border:1px solid rgba(212,168,67,.15);padding:32px;margin-bottom:20px;opacity:0;animation:up .6s .3s forwards;}
-.cdown-label{font-family:'Syne Mono',monospace;font-size:.58rem;letter-spacing:.3em;color:var(--goldd);text-transform:uppercase;margin-bottom:12px;}
-.cdown-nums{display:flex;gap:16px;align-items:flex-end;}
-.cdown-unit{text-align:center;}
-.cdown-n{font-family:'Syne',sans-serif;font-size:3rem;font-weight:800;color:var(--gold);line-height:1;display:block;}
-.cdown-u{font-family:'Syne Mono',monospace;font-size:.52rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;}
-.cdown-sep{font-size:2rem;color:var(--muted);padding-bottom:8px;}
+  .view{display:none;}
+  .view.active{display:block;}
 
-/* STATS GRID */
-.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(212,168,67,.06);opacity:0;animation:up .6s .45s forwards;}
-.stat-card{background:var(--bg3);padding:20px;text-align:center;}
-.stat-n{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--gold);display:block;line-height:1;}
-.stat-l{font-family:'Syne Mono',monospace;font-size:.52rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-top:4px;display:block;}
+  /* TODAY */
+  .today-grid{display:grid;grid-template-columns:1fr;gap:16px;}
+  @media(min-width:680px){.today-grid{grid-template-columns:220px 1fr;}}
+  @media(max-width:420px){
+    .wrap{padding:18px 12px 60px;}
+    .panel{padding:16px;}
+    h1.title{font-size:24px;}
+    .panel h2{font-size:17px;}
+    nav.tabs button{padding:9px 10px;font-size:11px;}
+    .ring{width:140px;height:140px;}
+    .ring-inner{width:112px;height:112px;}
+    .ring-time{font-size:19px;}
+    .income-form, .inline-config{flex-direction:column;align-items:stretch;}
+    .income-form input, .income-form select, .inline-config select, .inline-config input{width:100%;}
+    table{font-size:12px;}
+    th,td{padding:7px 5px;}
+  }
+  .ring-box{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;}
+  .ring{
+    width:170px;height:170px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+  }
+  .ring-inner{
+    width:138px;height:138px;border-radius:50%;
+    background:var(--panel);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;
+  }
+  .ring-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;color:var(--text-dim);text-transform:uppercase;}
+  .ring-time{font-family:'Fraunces',serif;font-size:24px;font-weight:600;margin-top:2px;}
+  .ring-sub{font-size:11px;color:var(--text-dimmer);margin-top:2px;}
 
-/* TICKER */
-.ticker-wrap{overflow:hidden;background:var(--gold);padding:10px 0;}
-.ticker{display:flex;gap:48px;white-space:nowrap;animation:tick 28s linear infinite;}
-.ticker span{font-family:'Syne',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.15em;color:var(--bg);text-transform:uppercase;}
-@keyframes tick{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .facts{display:flex;flex-direction:column;gap:10px;}
+  .fact-row{
+    display:flex;justify-content:space-between;align-items:baseline;
+    padding:10px 0;border-bottom:1px dashed var(--border);
+    font-size:14px;
+  }
+  .fact-row:last-child{border-bottom:none;}
+  .fact-row .k{color:var(--text-dim);}
+  .fact-row .v{font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .tag{
+    display:inline-block;padding:2px 8px;border-radius:20px;
+    font-family:'IBM Plex Mono',monospace;font-size:11px;
+  }
+  .tag.gold{background:var(--gold-soft);color:var(--gold);}
+  .tag.wine{background:var(--wine-soft);color:#D98A97;}
+  .tag.teal{background:var(--teal-soft);color:#8FC7B3;}
 
-/* SECTIONS */
-section{padding:88px 0;}
-.wrap{max-width:1100px;margin:0 auto;padding:0 48px;}
-.sec-alt{background:var(--bg2);}
-.sec-dark{background:var(--bg3);}
+  select, input[type=number], input[type=text]{
+    background:var(--panel2);border:1px solid var(--border);color:var(--text);
+    font-family:'Inter',sans-serif;font-size:13px;
+    padding:7px 10px;border-radius:6px;
+  }
+  .inline-config{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:14px;font-size:13px;color:var(--text-dim);}
+  .day-picker{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .day-chip{
+    font-family:'IBM Plex Mono',monospace;font-size:11px;
+    padding:6px 10px;border-radius:20px;border:1px solid var(--border);
+    cursor:pointer;color:var(--text-dim);background:var(--panel2);
+    user-select:none;
+  }
+  .day-chip.on{background:var(--wine-soft);border-color:var(--wine);color:#D98A97;}
 
-.stag{font-family:'Syne Mono',monospace;font-size:.58rem;letter-spacing:.32em;color:var(--goldd);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
-.stag::before{content:'';width:16px;height:1px;background:var(--goldd);}
-.sh{font-family:'Syne',sans-serif;font-size:clamp(2.5rem,5vw,4.8rem);font-weight:800;line-height:.9;letter-spacing:-.02em;margin-bottom:48px;color:var(--cream);}
-.sh em{color:var(--gold);font-style:normal;}
-.sdesc{font-size:.95rem;color:var(--dim);max-width:660px;line-height:1.75;margin-bottom:0;}
+  /* MONEY */
+  table{width:100%;border-collapse:collapse;font-size:13.5px;}
+  th,td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--border);}
+  th{color:var(--text-dim);font-weight:500;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.04em;text-transform:uppercase;}
+  td.num{font-family:'IBM Plex Mono',monospace;}
 
-/* DAILY CHECKLIST */
-.checklist{list-style:none;margin-top:36px;}
-.checklist li{display:flex;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.04);cursor:pointer;transition:background .2s;border-radius:4px;padding-left:8px;padding-right:8px;}
-.checklist li:hover{background:rgba(212,168,67,.04);}
-.check-box{width:18px;height:18px;border:1px solid var(--goldd);border-radius:3px;flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
-.checklist li.done .check-box{background:var(--gold);border-color:var(--gold);}
-.checklist li.done .check-box::after{content:'✓';font-size:.65rem;color:var(--bg);font-weight:800;}
-.checklist li.done .check-main{text-decoration:line-through;color:var(--muted);}
-.check-content{flex:1;}
-.check-main{font-size:.95rem;font-weight:600;color:var(--text);display:block;margin-bottom:2px;}
-.check-sub{font-size:.8rem;color:var(--dim);line-height:1.5;}
-.check-badge{display:inline-block;font-family:'Syne Mono',monospace;font-size:.52rem;letter-spacing:.08em;padding:2px 6px;background:rgba(212,168,67,.12);color:var(--gold);border-radius:2px;margin-left:6px;vertical-align:middle;}
-.reset-btn{margin-top:20px;font-family:'Syne Mono',monospace;font-size:.6rem;letter-spacing:.15em;color:var(--muted);background:none;border:1px solid var(--muted);padding:8px 16px;cursor:pointer;text-transform:uppercase;transition:all .2s;}
-.reset-btn:hover{color:var(--gold);border-color:var(--gold);}
+  .bars{margin-top:18px;}
+  .bar-row{margin-bottom:14px;}
+  .bar-label{display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px;color:var(--text-dim);}
+  .bar-track{height:8px;background:var(--panel2);border-radius:4px;overflow:hidden;}
+  .bar-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--wine));border-radius:4px;transition:width .3s;}
 
-/* TWO COL */
-.tcol{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:40px;}
-.tcard{background:var(--bg4);border:1px solid rgba(255,255,255,.05);padding:28px;}
-.tcard h3{font-family:'Syne Mono',monospace;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid rgba(212,168,67,.12);font-weight:400;}
-.tcard ul{list-style:none;}
-.tcard li{font-size:.86rem;color:var(--dim);padding:6px 0 6px 14px;position:relative;border-bottom:1px solid rgba(255,255,255,.03);line-height:1.5;}
-.tcard li::before{content:'→';position:absolute;left:0;color:var(--goldd);font-size:.75rem;}
+  .income-form{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center;}
+  .btn{
+    background:var(--gold);color:#1A1508;border:none;font-weight:600;
+    font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:0.03em;
+    padding:8px 14px;border-radius:6px;cursor:pointer;text-transform:uppercase;
+  }
+  .btn.ghost{background:none;border:1px solid var(--border);color:var(--text-dim);}
+  .btn.small{padding:5px 10px;font-size:11px;}
+  .log-list{margin-top:12px;font-size:13px;}
+  .log-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--border);}
 
-/* VISION GRID */
-.vgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(212,168,67,.06);}
-.vcard{background:var(--bg2);padding:32px 24px;border-top:2px solid transparent;transition:all .3s;}
-.vcard:hover{background:var(--bg3);border-top-color:var(--gold);}
-.vcard .vi{font-size:1.6rem;display:block;margin-bottom:12px;}
-.vcard h3{font-family:'Syne Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:400;}
-.vcard p{font-size:.85rem;color:var(--dim);line-height:1.6;}
+  /* PILLARS */
+  .pillar-grid{display:grid;grid-template-columns:1fr;gap:14px;}
+  @media(min-width:680px){.pillar-grid{grid-template-columns:1fr 1fr;}}
+  .pillar-card{
+    background:var(--panel2);border:1px solid var(--border);border-radius:var(--radius);
+    padding:18px;border-top:3px solid var(--gold);
+  }
+  .pillar-card.ministry{border-top-color:var(--gold);}
+  .pillar-card.career{border-top-color:var(--wine);}
+  .pillar-card.body{border-top-color:var(--teal);}
+  .pillar-card.mind{border-top-color:#8B8DC7;}
+  .pillar-card h3{font-family:'Fraunces',serif;font-size:16px;margin:0 0 8px;}
+  .pillar-card ul{margin:0;padding-left:18px;font-size:13px;color:var(--text-dim);line-height:1.7;}
+  .pillar-card .fixed-note{
+    display:inline-block;margin-bottom:8px;font-family:'IBM Plex Mono',monospace;
+    font-size:10px;letter-spacing:0.06em;text-transform:uppercase;color:var(--gold);
+  }
 
-/* FASTING BOX */
-.fast{background:var(--bg4);border-left:3px solid var(--gold);padding:28px 32px;margin-top:32px;}
-.fast h3{font-family:'Syne Mono',monospace;font-size:.58rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;font-weight:400;}
-.fast p{font-size:.88rem;color:var(--dim);line-height:1.7;}
-.fast-flow{display:flex;gap:0;margin-top:16px;align-items:center;flex-wrap:wrap;gap:8px;}
-.fast-step{background:rgba(212,168,67,.1);border:1px solid rgba(212,168,67,.2);padding:8px 16px;font-family:'Syne Mono',monospace;font-size:.65rem;color:var(--gold);letter-spacing:.1em;}
-.fast-arr{color:var(--goldd);font-size:1rem;}
+  /* WEEKLY */
+  .week-table-wrap{overflow-x:auto;}
+  .week-table{min-width:640px;}
+  .week-table th{text-align:center;}
+  .week-table td{text-align:center;font-size:12.5px;}
+  .week-table td:first-child, .week-table th:first-child{text-align:left;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);}
+  .today-col{background:var(--gold-soft);}
 
-/* CODING */
-.code-box{background:var(--bg4);border:1px solid rgba(212,168,67,.12);padding:32px;margin-top:32px;position:relative;}
-.code-box::before{content:'40 HRS / WEEK';position:absolute;top:-10px;left:24px;background:var(--gold);color:var(--bg);font-family:'Syne',sans-serif;font-weight:700;font-size:.58rem;letter-spacing:.18em;padding:3px 10px;}
-.code-cols{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
-.code-col h4{font-family:'Syne Mono',monospace;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(212,168,67,.12);font-weight:400;}
-.code-col ul{list-style:none;}
-.code-col li{font-size:.85rem;color:var(--dim);padding:6px 0 6px 14px;position:relative;border-bottom:1px solid rgba(255,255,255,.03);line-height:1.5;}
-.code-col li::before{content:'›';position:absolute;left:0;color:var(--goldd);}
+  /* SYSTEMS */
+  .checklist{list-style:none;padding:0;margin:0;}
+  .checklist li{
+    display:flex;align-items:center;gap:10px;
+    padding:10px 0;border-bottom:1px dashed var(--border);font-size:14px;
+  }
+  .checklist li:last-child{border-bottom:none;}
+  .checklist input[type=checkbox]{
+    width:17px;height:17px;accent-color:var(--gold);cursor:pointer;flex:0 0 auto;
+  }
+  .checklist label.done{color:var(--text-dimmer);text-decoration:line-through;}
+  .rule-block{
+    background:var(--panel2);border-left:3px solid var(--wine);
+    padding:12px 14px;border-radius:0 6px 6px 0;font-size:13px;color:var(--text-dim);
+    margin-bottom:16px;line-height:1.6;
+  }
 
-/* WEIGHT CHART */
-.wbars{display:flex;gap:12px;height:180px;align-items:flex-end;border-left:1px solid rgba(212,168,67,.15);border-bottom:1px solid rgba(212,168,67,.15);padding:0 0 0 12px;margin-top:36px;}
-.wcol{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:6px;}
-.wbar{width:100%;border-radius:2px 2px 0 0;height:0;transition:height 1.4s cubic-bezier(.34,1.2,.64,1);}
-.wb0{background:linear-gradient(to top,#3a3530,#252220);}
-.wb1{background:linear-gradient(to top,var(--goldd),#9A7020);}
-.wb2{background:linear-gradient(to top,var(--gold),var(--gold2));}
-.wval{font-family:'Syne Mono',monospace;font-size:.62rem;color:var(--gold);text-align:center;}
-.wlbl{font-size:.55rem;color:var(--muted);letter-spacing:.05em;text-align:center;line-height:1.4;margin-bottom:6px;}
+  /* ROADMAP */
+  .quarter{
+    display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--border);
+  }
+  .quarter:last-child{border-bottom:none;}
+  .qtag{
+    flex:0 0 64px;font-family:'IBM Plex Mono',monospace;font-size:12px;
+    color:var(--gold);padding-top:2px;
+  }
+  .qbody{flex:1;font-size:13.5px;line-height:1.6;color:var(--text-dim);}
+  .qbody b{color:var(--text);}
 
-/* PHASES */
-.phases{display:flex;flex-direction:column;gap:12px;margin-top:36px;}
-.pcard{display:grid;grid-template-columns:200px 1fr;border:1px solid rgba(255,255,255,.06);overflow:hidden;transition:border-color .3s;}
-.pcard:hover{border-color:rgba(212,168,67,.25);}
-.pleft{padding:36px 24px;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
-.pleft::after{content:attr(data-n);font-family:'Syne',sans-serif;font-size:6rem;font-weight:800;color:rgba(0,0,0,.2);position:absolute;bottom:-15px;right:-5px;line-height:1;pointer-events:none;}
-.p1l{background:linear-gradient(135deg,#0C1830,#060E1C);}
-.p2l{background:linear-gradient(135deg,#0C2818,#060E0A);}
-.p3l{background:linear-gradient(135deg,#301008,#1A0804);}
-.ptag{font-family:'Syne Mono',monospace;font-size:.52rem;letter-spacing:.25em;color:rgba(212,168,67,.6);text-transform:uppercase;margin-bottom:4px;}
-.pname{font-family:'Syne',sans-serif;font-size:1.7rem;font-weight:800;color:var(--cream);letter-spacing:.04em;line-height:1;}
-.pdates{font-family:'Syne Mono',monospace;font-size:.55rem;color:rgba(255,255,255,.28);margin-top:6px;}
-.pright{padding:28px 36px;background:var(--bg3);}
-.pright ul{list-style:none;}
-.pright li{padding:7px 0 7px 16px;font-size:.85rem;color:var(--dim);border-bottom:1px solid rgba(255,255,255,.04);position:relative;line-height:1.5;}
-.pright li::before{content:'›';position:absolute;left:0;color:var(--goldd);}
-
-/* INCOME */
-.itable{width:100%;border-collapse:collapse;margin-top:36px;}
-.itable tr{border-bottom:1px solid rgba(255,255,255,.05);transition:background .2s;}
-.itable tr:hover{background:rgba(212,168,67,.03);}
-.itable td{padding:18px 16px;vertical-align:middle;}
-.it-p{font-family:'Syne Mono',monospace;font-size:.62rem;color:var(--goldd);width:130px;white-space:nowrap;}
-.it-a{font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;color:var(--gold);width:200px;line-height:1;}
-.it-d{font-size:.84rem;color:var(--dim);line-height:1.5;}
-
-/* GROOMING */
-.ggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(212,168,67,.05);margin-top:32px;}
-.gcard{background:var(--bg2);padding:24px 20px;transition:background .3s;}
-.gcard:hover{background:var(--bg3);}
-.gcard .ge{font-size:1.4rem;display:block;margin-bottom:10px;}
-.gcard h4{font-family:'Syne Mono',monospace;font-size:.56rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;font-weight:400;}
-.gcard p{font-size:.82rem;color:var(--dim);line-height:1.55;}
-
-/* PROC */
-.proc-sect{background:var(--red);padding:72px 48px;position:relative;overflow:hidden;}
-.proc-sect::before{content:'NO EXCUSES';font-family:'Syne',sans-serif;font-weight:800;font-size:13rem;color:rgba(0,0,0,.1);position:absolute;right:-40px;top:50%;transform:translateY(-50%);white-space:nowrap;letter-spacing:.04em;pointer-events:none;line-height:1;}
-.proc-h{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:800;color:var(--cream);margin-bottom:10px;}
-.proc-sub{font-size:.95rem;color:rgba(240,232,212,.6);max-width:560px;line-height:1.7;margin-bottom:36px;}
-.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;}
-.prc{background:rgba(0,0,0,.2);padding:24px 20px;border-top:2px solid rgba(240,232,212,.1);transition:background .3s;}
-.prc:hover{background:rgba(0,0,0,.4);}
-.prc-n{font-family:'Syne',sans-serif;font-size:2.5rem;font-weight:800;color:rgba(240,232,212,.08);line-height:1;margin-bottom:6px;}
-.prc h3{font-family:'Syne Mono',monospace;font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:rgba(240,232,212,.8);font-weight:400;margin-bottom:8px;}
-.prc p{font-size:.83rem;color:rgba(240,232,212,.5);line-height:1.6;}
-.proc-rule{margin-top:32px;padding:24px 28px;background:rgba(0,0,0,.3);border-left:3px solid var(--cream);}
-.proc-rule p{font-family:'Lora',serif;font-size:1.2rem;color:var(--cream);line-height:1.5;font-style:italic;}
-
-/* ANTI VISION */
-.antivision{background:var(--bg4);border:1px solid rgba(212,168,67,.1);padding:36px;margin-top:32px;position:relative;overflow:hidden;}
-.antivision::before{content:'"';font-family:'Lora',serif;font-size:10rem;color:rgba(192,56,40,.08);position:absolute;top:-20px;left:10px;line-height:1;pointer-events:none;}
-.antivision p{font-family:'Lora',serif;font-size:1.1rem;font-style:italic;color:var(--dim);line-height:1.7;position:relative;}
-.antivision strong{color:var(--red);font-style:normal;}
-
-/* PLEDGE */
-.pledge{padding:100px 48px;text-align:center;background:var(--bg2);border-top:1px solid rgba(212,168,67,.1);position:relative;overflow:hidden;}
-.pledge::before{content:'GLORY TO GOD';font-family:'Syne',sans-serif;font-weight:800;font-size:10rem;color:rgba(212,168,67,.025);position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);white-space:nowrap;pointer-events:none;}
-.pledge-q{font-family:'Lora',serif;font-size:clamp(1.5rem,3vw,2.3rem);font-style:italic;color:var(--text);max-width:780px;margin:0 auto 40px;line-height:1.5;position:relative;}
-.pledge-line{width:160px;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin:0 auto 24px;}
-.pledge-sig{width:240px;border-bottom:1px solid rgba(212,168,67,.25);margin:36px auto 8px;}
-.pledge-hint{font-family:'Lora',serif;font-size:.95rem;color:var(--muted);font-style:italic;}
-.pledge-date{font-family:'Syne Mono',monospace;font-size:.58rem;color:var(--goldd);letter-spacing:.22em;margin-top:24px;text-transform:uppercase;}
-
-/* FOOTER */
-footer{background:var(--bg);border-top:1px solid rgba(255,255,255,.04);padding:22px 48px;display:flex;justify-content:space-between;align-items:center;}
-footer span{font-family:'Syne Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.12em;}
-
-.rule{border:none;height:1px;background:linear-gradient(to right,transparent,var(--goldd),transparent);margin:48px 0;}
-
-/* ANIMATIONS */
-@keyframes up{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .55s ease,transform .55s ease;}
-.reveal.in{opacity:1;transform:translateY(0);}
-
-/* RESPONSIVE */
-@media(max-width:900px){
-  nav{padding:12px 20px;}.nav-links{display:none;}
-  .hero{grid-template-columns:1fr;}.hero-right{border-left:none;border-top:1px solid rgba(212,168,67,.08);}
-  .wrap{padding:0 20px;}.proc-sect{padding:56px 20px;}.pledge{padding:72px 20px;}
-  footer{padding:18px 20px;flex-direction:column;gap:8px;text-align:center;}
-  .vgrid,.pgrid,.ggrid{grid-template-columns:1fr 1fr;}
-  .tcol,.code-cols{grid-template-columns:1fr;}
-  .pcard{grid-template-columns:1fr;}
-  .pleft{padding:24px;}.pright{padding:24px;}
-  .cdown-nums{flex-wrap:wrap;}
-  .stats-grid{grid-template-columns:1fr 1fr;}
-}
+  footer{
+    text-align:center;color:var(--text-dimmer);font-size:12px;
+    margin-top:30px;font-family:'IBM Plex Mono',monospace;
+  }
 </style>
 </head>
 <body>
+<div class="wrap">
 
-<!-- NAV -->
-<nav>
-  <div class="nav-brand">FLASH · 2-YEAR BLUEPRINT</div>
-  <div class="nav-live"><div class="nav-dot"></div><span id="liveday">Day —</span></div>
-  <ul class="nav-links">
-    <li><a href="#daily">Daily</a></li>
-    <li><a href="#vision">Vision</a></li>
-    <li><a href="#coding">Coding</a></li>
-    <li><a href="#grooming">Grooming</a></li>
-    <li><a href="#fitness">Fitness</a></li>
-    <li><a href="#career">Career</a></li>
-    <li><a href="#phases">Phases</a></li>
-    <li><a href="#pledge">Pledge</a></li>
-  </ul>
-</nav>
+  <header class="top">
+    <span class="eyebrow">The Rule &nbsp;·&nbsp; Aug 2026 → Aug 2028</span>
+    <h1 class="title">Ministry, money, and the work — in one place.</h1>
+    <div class="subtitle">Not a document you'll rebuild for the sixth time. A dashboard you check.</div>
+  </header>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-left">
-    <div class="htag">May 8, 2026 — May 8, 2028</div>
-    <div class="hname">Flash's Blueprint</div>
-    <h1 class="htitle">
-      <span class="l1">Two</span>
-      <span class="l2">Years.</span>
-      <span class="l3">New Man.</span>
-    </h1>
-    <p class="hquote">"I am not where I want to be yet. But I am building the man I was created to be. Every day I show up is a vote for the future I deserve."</p>
-  </div>
-  <div class="hero-right">
-    <div class="hero-glow"></div>
-    <div class="cdown-card">
-      <div class="cdown-label">Days remaining to May 8, 2028</div>
-      <div class="cdown-nums">
-        <div class="cdown-unit"><span class="cdown-n" id="cd-d">—</span><span class="cdown-u">Days</span></div>
-        <div class="cdown-sep">:</div>
-        <div class="cdown-unit"><span class="cdown-n" id="cd-h">—</span><span class="cdown-u">Hrs</span></div>
-        <div class="cdown-sep">:</div>
-        <div class="cdown-unit"><span class="cdown-n" id="cd-m">—</span><span class="cdown-u">Min</span></div>
-        <div class="cdown-sep">:</div>
-        <div class="cdown-unit"><span class="cdown-n" id="cd-s">—</span><span class="cdown-u">Sec</span></div>
+  <nav class="tabs" id="tabs">
+    <button data-view="today" class="active">Today</button>
+    <button data-view="money">Money</button>
+    <button data-view="goals">Goals</button>
+    <button data-view="pillars">Pillars</button>
+    <button data-view="weekly">Weekly Rule</button>
+    <button data-view="systems">Systems</button>
+    <button data-view="roadmap">Roadmap</button>
+  </nav>
+
+  <!-- TODAY -->
+  <div class="view active" id="view-today">
+    <div class="panel">
+      <h2 id="today-date">—</h2>
+      <div class="desc">Your fast, your day type, and what that means for study hours — today only.</div>
+      <div class="today-grid">
+        <div class="ring-box">
+          <div class="ring" id="fastRing">
+            <div class="ring-inner">
+              <div class="ring-label">Fast breaks</div>
+              <div class="ring-time" id="breakTime">—</div>
+              <div class="ring-sub" id="breakSub">—</div>
+            </div>
+          </div>
+        </div>
+        <div class="facts">
+          <div class="fact-row"><span class="k">Day type</span><span class="v" id="dayType">—</span></div>
+          <div class="fact-row"><span class="k">Study hours today</span><span class="v" id="studyHours">—</span></div>
+          <div class="fact-row"><span class="k">Days to laptop deadline</span><span class="v" id="laptopDays">—</span></div>
+          <div class="fact-row"><span class="k">Days to debt deadline</span><span class="v" id="debtDays">—</span></div>
+        </div>
+      </div>
+
+      <div class="inline-config">
+        <span>Your 3rd evening-fast day (Wed &amp; Sat already fixed):</span>
+        <select id="thirdFastDay"></select>
+      </div>
+      <div class="inline-config" style="margin-top:10px;">
+        <span>Your vigil day (weekday — Sunday is now rest):</span>
+        <select id="vigilDay"></select>
+      </div>
+      <div style="margin-top:16px;">
+        <div style="font-size:13px;color:var(--text-dim);margin-bottom:6px;">Your 3 evangelism days (tap to set):</div>
+        <div class="day-picker" id="evangDays"></div>
       </div>
     </div>
-    <div class="stats-grid">
-      <div class="stat-card"><span class="stat-n">96<small style="font-size:1rem">kg</small></span><span class="stat-l">Start Weight</span></div>
-      <div class="stat-card"><span class="stat-n">84<small style="font-size:1rem">kg</small></span><span class="stat-l">Target Weight</span></div>
-      <div class="stat-card"><span class="stat-n">40<small style="font-size:1rem">hrs</small></span><span class="stat-l">Code / Week</span></div>
-      <div class="stat-card"><span class="stat-n">₦50m+</span><span class="stat-l">Net Worth Goal</span></div>
+
+    <div class="panel">
+      <h2>Sleep</h2>
+      <div class="desc">Everything else here runs on willpower that sleep debt quietly erodes first. Target: 7–8h, phone out of the room.</div>
+      <div class="income-form">
+        <input type="text" id="sleepDate" placeholder="Night, e.g. Mon 31 Aug" style="flex:1;min-width:140px;">
+        <input type="number" id="sleepHours" placeholder="Hours" step="0.5" style="width:100px;">
+        <button class="btn" id="addSleepBtn">Log</button>
+      </div>
+      <div class="fact-row" style="margin-top:10px;"><span class="k">7-night average</span><span class="v" id="sleepAvg">—</span></div>
+      <div class="log-list" id="sleepLog"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Accountability</h2>
+      <div class="desc">A second set of eyes on your Sunday and monthly review — self-tracking alone tends to soften under pressure.</div>
+      <div class="income-form">
+        <input type="text" id="accName" placeholder="Accountability partner's name" style="flex:1;min-width:180px;">
+        <button class="btn small" id="saveAccBtn">Save</button>
+      </div>
+      <ul class="checklist" style="margin-top:12px;">
+        <li>
+          <input type="checkbox" id="accCheckWeek">
+          <label for="accCheckWeek" id="accLabelWeek">Reviewed this week with <span id="accNameShown">—</span></label>
+        </li>
+      </ul>
     </div>
   </div>
+
+  <!-- MONEY -->
+  <div class="view" id="view-money">
+    <div class="panel">
+      <h2>The next 6 months</h2>
+      <div class="desc">₦1.5m confirmed — adjust below anytime if it changes.</div>
+      <table>
+        <tr><th>Goal</th><th>Target</th><th>Deadline</th><th>Monthly need</th></tr>
+        <tr><td>Debt cleared</td><td class="num" id="debtTargetCell">₦1.5m</td><td>6 months</td><td class="num">~₦250k</td></tr>
+        <tr><td>Laptop</td><td class="num">~₦450k</td><td>4 months</td><td class="num">~₦113k</td></tr>
+        <tr><td><b>Combined, months 1–4</b></td><td></td><td></td><td class="num"><b>~₦363k</b></td></tr>
+      </table>
+      <div class="inline-config" style="margin-top:14px;">
+        <span>Update debt estimate: ₦</span>
+        <input type="number" id="debtInput" value="1500000" step="10000" style="width:130px;">
+        <button class="btn small" id="recalcBtn">Recalculate</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Income vs. what's needed</h2>
+      <div class="desc">Log what actually came in each month. The bar shows it against the ~₦363k/mo target for months 1–4.</div>
+      <div class="income-form">
+        <input type="text" id="incMonth" placeholder="Month, e.g. Sep 2026" style="flex:1;min-width:140px;">
+        <input type="number" id="incAmount" placeholder="₦ amount" style="width:130px;">
+        <button class="btn" id="addIncomeBtn">Log</button>
+      </div>
+      <div class="inline-config" style="margin-top:12px;">
+        <span>Auto-save / tithe rule, % of each month logged:</span>
+        <input type="number" id="saveRate" value="25" min="0" max="100" style="width:70px;">
+        <span>%</span>
+      </div>
+      <div class="log-list" id="incomeLog"></div>
+      <div class="bars" id="incomeBars"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Agency systems</h2>
+      <div class="desc">Pricing already lives on the Noveltiq site — this is the operating layer around it.</div>
+      <ul class="checklist" style="list-style:none;padding:0;">
+        <li style="padding:8px 0;border-bottom:1px dashed var(--border);font-size:13.5px;color:var(--text-dim);"><b style="color:var(--text);">Deposit before work starts</b> — no exceptions, this is the one that's bitten you before</li>
+        <li style="padding:8px 0;border-bottom:1px dashed var(--border);font-size:13.5px;color:var(--text-dim);"><b style="color:var(--text);">Testimonial requested at every project close-out</b> — before final payment clears, while goodwill is highest</li>
+        <li style="padding:8px 0;font-size:13.5px;color:var(--text-dim);"><b style="color:var(--text);">Simple pipeline below</b> — every active client in one place, nothing tracked in your head</li>
+      </ul>
+      <div class="income-form" style="margin-top:14px;">
+        <input type="text" id="clientName" placeholder="Client name" style="flex:1;min-width:120px;">
+        <select id="clientStage">
+          <option>Lead</option>
+          <option>Proposal sent</option>
+          <option>Deposit paid</option>
+          <option>In progress</option>
+          <option>Delivered</option>
+          <option>Retainer</option>
+        </select>
+        <button class="btn small" id="addClientBtn">Add</button>
+      </div>
+      <div class="log-list" id="clientPipeline"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Two paths</h2>
+      <div class="pillar-grid">
+        <div class="pillar-card career">
+          <h3>A — Grow income</h3>
+          <ul>
+            <li>Convert 2–3 clients to monthly retainers — this raises your floor, not just one month's number</li>
+            <li>Push the WordPress maintenance offering already scoped</li>
+            <li>Take PHP/Laravel freelance work during BE-301 — income and skill-building at once</li>
+          </ul>
+        </div>
+        <div class="pillar-card body">
+          <h3>B — Resequence</h3>
+          <ul>
+            <li>Debt beats laptop — it compounds, the laptop doesn't</li>
+            <li>Two months short of target → push laptop to month 6–7</li>
+            <li>A cheaper interim laptop is fine if function, not prestige, is the need</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GOALS -->
+  <div class="view" id="view-goals">
+    <div class="panel">
+      <h2>The job</h2>
+      <div class="desc">Aggressive but real — here's what has to be true for a 12-month landing.</div>
+      <div class="facts">
+        <div class="fact-row"><span class="k">Target landing date</span><span class="v" id="jobTargetDate">—</span></div>
+        <div class="fact-row"><span class="k">Days remaining</span><span class="v" id="jobDaysLeft">—</span></div>
+        <div class="fact-row"><span class="k">Realistic first-role income</span><span class="v">$900 – $1,800 / mo</span></div>
+        <div class="fact-row"><span class="k">Stretch, with a strong capstone + interview prep</span><span class="v">up to ~$2,500 / mo</span></div>
+      </div>
+      <div class="rule-block" style="margin-top:16px;">
+        <b>The honest conflict:</b> your full roadmap (Python → PHP/Laravel → JS/TS/React → cloud/system design → 3 capstones) now runs ~90–100 weeks at your adjusted study pace. That's ~20–23 months — it doesn't fit a 12-month job target as originally scoped.
+      </div>
+      <div class="rule-block" style="border-left-color:var(--teal);">
+        <b>The realistic path that does fit 12 months:</b> narrow the pre-application scope to Python + FastAPI + PostgreSQL fundamentals plus <b>one</b> genuinely polished capstone (not three) — deployed, documented, demo-ready. Start applying from month 8–9 while still building, not after everything is "finished." PHP/Laravel, React, and cloud/system design continue in parallel and strengthen the profile post-hire, on the job or through the agency's real client work.
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Job search mechanics</h2>
+      <div class="desc">A date alone isn't a system — this is what actually gets applications out.</div>
+      <ul class="checklist" style="list-style:none;padding:0;">
+        <li style="padding:8px 0;border-bottom:1px dashed var(--border);font-size:13.5px;color:var(--text-dim);"><b style="color:var(--text);">CV and portfolio site kept current</b> — updated once per capstone milestone, not endlessly rebuilt</li>
+        <li style="padding:8px 0;border-bottom:1px dashed var(--border);font-size:13.5px;color:var(--text-dim);"><b style="color:var(--text);">Channels:</b> remote job boards (We Work Remotely, RemoteOK), Turing/similar platforms, LinkedIn, direct outreach to companies already hiring remote backend devs</li>
+        <li style="padding:8px 0;font-size:13.5px;color:var(--text-dim);">Track every application below — effort becomes visible, not just felt</li>
+      </ul>
+      <div class="income-form" style="margin-top:14px;">
+        <input type="text" id="appCompany" placeholder="Company / role" style="flex:1;min-width:140px;">
+        <select id="appStage">
+          <option>Applied</option>
+          <option>Screening</option>
+          <option>Interview</option>
+          <option>Offer</option>
+          <option>Rejected</option>
+        </select>
+        <button class="btn small" id="addAppBtn">Add</button>
+      </div>
+      <div class="log-list" id="appLog"></div>
+    </div>
+
+    <div class="panel">
+      <h2>What Noveltiq should be netting</h2>
+      <div class="desc">Profit, not revenue — after tools, subcontractors, and costs. Built off your current ₦150k–400k/mo baseline and the retainer push already in the plan.</div>
+      <div class="quarter"><span class="qtag">M1–6</span><div class="qbody"><b>~₦250k–400k/mo profit</b> — debt clearance takes priority; 2–3 retainers signed and stabilizing.</div></div>
+      <div class="quarter"><span class="qtag">M7–12</span><div class="qbody"><b>~₦400k–650k/mo profit</b> — 4–6 retainers running, laptop/debt goals behind you, job applications beginning.</div></div>
+      <div class="quarter"><span class="qtag">M13–18</span><div class="qbody"><b>~₦650k–850k/mo profit</b> — agency semi-systematized so it can run alongside a new job if one lands.</div></div>
+      <div class="quarter"><span class="qtag">M19–24</span><div class="qbody"><b>~₦700k–1.2m/mo profit</b> — realistic ceiling for a one-person-led agency at this stage without hiring.</div></div>
+      <div class="rule-block" style="margin-top:16px;">
+        <b>Rough retainer math:</b> at an average retainer of ₦75k–100k/client/month, hitting the M19–24 target needs roughly 8–12 active retainer clients, or fewer if project margins stay healthy alongside them. That's the number to actually track — not the profit figure itself.
+      </div>
+    </div>
+  </div>
+
+  <!-- PILLARS -->
+  <div class="view" id="view-pillars">
+    <div class="panel">
+      <h2>The four pillars</h2>
+      <div class="desc">One of these is fixed. The rest flex around it.</div>
+      <div class="pillar-grid">
+        <div class="pillar-card ministry">
+          <span class="fixed-note">Fixed — not the flexible part</span>
+          <h3>Ministry</h3>
+          <ul>
+            <li>Pastoring + 3× weekly evangelism</li>
+            <li>4 audio teachings daily — stacked on walks/commute, not a separate block</li>
+            <li>Prayer &amp; Bible study, 5h/day — split AM devotion + a dedicated block</li>
+            <li>Daily fast, extended to evening on Wed / Sat / your chosen day</li>
+          </ul>
+        </div>
+        <div class="pillar-card career">
+          <span class="fixed-note" style="color:#D98A97;">Flexible — adjusted for real hours</span>
+          <h3>Career / Money</h3>
+          <ul>
+            <li>Python → PHP/Laravel (BE-301) → JS/TS/React → cloud/system design → 3 capstones</li>
+            <li>5h on non-evangelism days, 2–3h on evangelism days</li>
+            <li>Roadmap stretches ~63 → ~90–100 weeks — expected, not a failure</li>
+            <li>Agency work prioritized on lighter ministry days</li>
+          </ul>
+        </div>
+        <div class="pillar-card body">
+          <h3>Body</h3>
+          <ul>
+            <li>3–5× training/week, 45 min, on non-fasting-hard days (Push / Pull / Legs / Full body+core split works well)</li>
+            <li>Daily walk — doubles as audio-teaching time</li>
+            <li>Eating window matched to fast-break time; protein + veg first when breaking</li>
+            <li>No heavy lifting on evening-fast days</li>
+            <li>Track bodyweight + one lift number weekly — realistic pace is ~1–2kg/month, not faster</li>
+          </ul>
+        </div>
+        <div class="pillar-card mind">
+          <h3>Mind / Character</h3>
+          <ul>
+            <li>Fasting, vigil, and evangelism are already the training — protect them, don't add on top</li>
+            <li>10-minute written reflection, weekly</li>
+            <li>Reading — 20 min/night, starting with <i>Deep Work</i></li>
+            <li>SE/CS fundamentals refresh — 30 min/day</li>
+            <li>French (Duolingo) — 10 min/day</li>
+          </ul>
+          <div style="margin-top:10px;font-size:11.5px;color:var(--text-dimmer);">~1h/day added here — stack French into any idle 10 minutes rather than a fixed slot, and keep SE/CS and reading as two separate short blocks rather than merging them into the Python study time.</div>
+        </div>
+        <div class="pillar-card" style="border-top-color:#8FC7B3;">
+          <h3>Presentation</h3>
+          <ul>
+            <li>AM: gentle cleanser → moisturiser with SPF → lip balm/deodorant — 5 minutes, every day</li>
+            <li>PM: cleanser → night moisturiser — never skipped, this is where skin actually repairs</li>
+            <li>Haircut every 14 days. Nails weekly. Posture — shoulders back, chin level</li>
+            <li>This is evidence of the discipline, not vanity for its own sake — keep it that simple</li>
+          </ul>
+        </div>
+        <div class="pillar-card" style="border-top-color:#8B8DC7;">
+          <h3>American Accent</h3>
+          <ul>
+            <li>Shadowing — watch/listen to American content, repeat lines aloud in real time</li>
+            <li><i>American Accent Training</i> (Ann Cook) as the working resource — it's a practice book, not a read-once title</li>
+            <li>Record yourself weekly, compare against the source — this catches drift faster than guessing</li>
+            <li>Fold into time you already have: audio-teaching walks, TED talks, American shows — not a new separate block</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>Reading — 20 min/night</h2>
+      <div class="desc">Discipline/mindset, communication, business, and money — 17 books, sequenced roughly in the order they're useful.</div>
+      <div class="income-form">
+        <input type="text" id="bookTitle" placeholder="Book title" style="flex:1;min-width:160px;">
+        <select id="bookStatus">
+          <option>Reading</option>
+          <option>Finished</option>
+          <option>Up next</option>
+        </select>
+        <button class="btn small" id="addBookBtn">Add</button>
+      </div>
+      <div class="log-list" id="bookLog"></div>
+    </div>
+
+    <div class="panel">
+      <h2>SE / CS refresh — 30 min/day</h2>
+      <div class="desc">10 books, sequenced against your roadmap phases — fundamentals first, systems/cloud last.</div>
+      <div class="income-form">
+        <input type="text" id="csBookTitle" placeholder="Book title" style="flex:1;min-width:160px;">
+        <select id="csBookStatus">
+          <option>Reading</option>
+          <option>Finished</option>
+          <option>Up next</option>
+        </select>
+        <button class="btn small" id="addCsBookBtn">Add</button>
+      </div>
+      <div class="log-list" id="csBookLog"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Body — the working detail</h2>
+      <div class="desc">The split and the fasting-to-eating flow, so "train" and "eat" aren't vague line items.</div>
+      <div class="tcol" style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div class="pillar-card career" style="border-top-color:var(--gold);">
+          <h3 style="font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;color:var(--gold);">Training split (fit around evangelism days)</h3>
+          <ul>
+            <li><b>Push</b> — chest, shoulders, triceps</li>
+            <li><b>Pull</b> — back, biceps</li>
+            <li><b>Legs</b> — squats, lunges, calves</li>
+            <li><b>Full body + core</b> — compound circuits, planks</li>
+            <li><b>Rest</b> on your evening-fast days — recovery is training, not laziness</li>
+          </ul>
+        </div>
+        <div class="pillar-card mind" style="border-top-color:var(--wine);">
+          <h3 style="font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;color:#D98A97;">Fast → eat flow</h3>
+          <ul>
+            <li>Fast breaks daily — extended to evening on your set days</li>
+            <li>Break with protein + vegetables first, not carbs</li>
+            <li>Eating window: protein every meal, controlled carbs, vegetables freely</li>
+            <li>Water throughout — this alone changes energy and skin more than anything else here</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WEEKLY -->
+  <div class="view" id="view-weekly">
+    <div class="panel">
+      <h2>The weekly rule</h2>
+      <div class="desc">Updates live based on the evangelism days and 3rd fast day you set on the Today tab.</div>
+      <div class="week-table-wrap">
+        <table class="week-table" id="weekTable">
+          <thead>
+            <tr><th>Day</th><th>Fast breaks</th><th>Ministry</th><th>Study</th><th>Body</th></tr>
+          </thead>
+          <tbody id="weekTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYSTEMS -->
+
+  <div class="view" id="view-systems">
+    <div class="panel">
+      <h2>Anti-procrastination system</h2>
+      <div class="desc">This week's non-negotiables. Check them as they happen — they reset when you tap "New week."</div>
+      <ul class="checklist" id="checklist"></ul>
+      <div style="margin-top:14px;">
+        <button class="btn ghost small" id="resetWeekBtn">New week (reset checklist)</button>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="rule-block">
+        <b>90-day lock:</b> no redesigning this plan before month 3. Five roadmap rebuilds already happened — rebuilding is itself a form of avoidance. This version runs as-is first.
+      </div>
+      <div class="rule-block" style="border-left-color:var(--gold);">
+        <b>If a study block is missed:</b> it's made up the same day at reduced length — not carried as guilt into next week.
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>1st of every month</h2>
+      <div class="desc">Five minutes, same checklist, every month — this is what actually catches drift early.</div>
+      <ul class="checklist" style="list-style:none;padding:0;">
+        <li style="padding:8px 0;border-bottom:1px dashed var(--border);font-size:13.5px;color:var(--text-dim);">Weigh in + one honest look, not a judgment session</li>
+        <li style="padding:8px 0;border-bottom:1px dashed var(--border);font-size:13.5px;color:var(--text-dim);">Review income against the target on the Money tab</li>
+        <li style="padding:8px 0;border-bottom:1px dashed var(--border);font-size:13.5px;color:var(--text-dim);">Count study hours actually completed vs. planned</li>
+        <li style="padding:8px 0;font-size:13.5px;color:var(--text-dim);">Name one win, one honest miss, one system fix — then close the review, don't dwell</li>
+      </ul>
+    </div>
+
+    <div class="panel">
+      <h2>When it gets hard</h2>
+      <div class="desc">Specific situations, specific responses — decided now, not negotiated in the moment.</div>
+      <div class="pillar-grid">
+        <div class="pillar-card body">
+          <h3>Power / no internet</h3>
+          <ul>
+            <li>Prayer and Bible reading with journal — needs nothing</li>
+            <li>Prayer walk — needs nothing</li>
+            <li>Draft outreach messages offline, send when back</li>
+          </ul>
+        </div>
+        <div class="pillar-card mind">
+          <h3>No motivation</h3>
+          <ul>
+            <li>Open the laptop, write one line of code — that's the whole ask</li>
+            <li>Do 50% of the day rather than zero — zero is what actually breaks a streak</li>
+          </ul>
+        </div>
+        <div class="pillar-card career">
+          <h3>You miss a day</h3>
+          <ul>
+            <li>Don't miss two — that's the real threshold, not the first miss</li>
+            <li>Name what caused it and one fix — then move on, no spiral</li>
+          </ul>
+        </div>
+        <div class="pillar-card" style="border-top-color:#8FC7B3;">
+          <h3>Clients go quiet</h3>
+          <ul>
+            <li>Double outreach that day, don't wait it out</li>
+            <li>Offer an upgrade or referral deal to an existing happy client</li>
+            <li>Church and community network — trust beats cold outreach here</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ROADMAP -->
+  <div class="view" id="view-roadmap">
+    <div class="panel">
+      <h2>Quarterly checkpoints</h2>
+      <div class="desc">Eight quarters, three lanes: money, career, ministry/body.</div>
+      <div class="quarter"><span class="qtag">Q1</span><div class="qbody"><b>Aug–Oct '26</b> — 2+ retainer clients signed, income tracked weekly. Python foundation continues at adjusted pace. Fasting/evangelism rhythm holding, training habit formed.</div></div>
+      <div class="quarter"><span class="qtag">Q2</span><div class="qbody"><b>Nov '26–Jan '27</b> — Debt cleared or a confirmed path; laptop bought or resequenced. First project milestone hit. Reflection habit unbroken 60+ days.</div></div>
+      <div class="quarter"><span class="qtag">Q3</span><div class="qbody"><b>Feb–Apr '27</b> — Income floor stable at ₦400k+/mo. BE-301 (PHP/Laravel) underway via real client work.</div></div>
+      <div class="quarter"><span class="qtag">Q4</span><div class="qbody"><b>May–Jul '27</b> — Capstone #1 live. Full year of training log. <b>Masters application/enrollment window (format TBD — see note below).</b></div></div>
+      <div class="quarter"><span class="qtag">Q5–Q8</span><div class="qbody"><b>Aug '27–Aug '28</b> — Continued income growth. JS/TS/React, cloud/system design, capstones #2–3, remote applications begin. Masters coursework running part-time alongside. Ministry and discipline now fully steady-state.</div></div>
+    </div>
+    <div class="panel">
+      <div class="rule-block" style="border-left-color:var(--wine);">
+        <b>Masters — confirmed part-time/online:</b> placed starting ~month 12 (mid-2027). This is the format that's compatible with the job search push, the agency, and ministry all running at once — worth protecting that boundary if the specific program ever tempts you toward a heavier course load.
+      </div>
+    </div>
+    <div class="panel">
+      <div class="rule-block">
+        Ministry stays exactly as-is because it's not negotiable. The money plan needs real income growth, not tighter budgeting. The study plan needs an honest, longer timeline instead of a compressed one that breaks. Three uncomfortable truths — and the ones that make this actually work.
+      </div>
+    </div>
+  </div>
+
+  <footer>built for one person, checked daily — not for anyone else to grade</footer>
 </div>
-
-<!-- TICKER -->
-<div class="ticker-wrap">
-  <div class="ticker">
-    <span>May 8 is Day 1</span><span>·</span><span>Produce Before You Consume</span><span>·</span><span>40 Hours Code Weekly</span><span>·</span><span>2 Hrs Prayer · 2 Hrs Bible Study</span><span>·</span><span>4 Audio Teachings Daily</span><span>·</span><span>Vigil Every Week</span><span>·</span><span>16 Hour Fast Daily</span><span>·</span><span>Glory to God</span><span>·</span>
-    <span>May 8 is Day 1</span><span>·</span><span>Produce Before You Consume</span><span>·</span><span>40 Hours Code Weekly</span><span>·</span><span>2 Hrs Prayer · 2 Hrs Bible Study</span><span>·</span><span>4 Audio Teachings Daily</span><span>·</span><span>Vigil Every Week</span><span>·</span><span>16 Hour Fast Daily</span><span>·</span><span>Glory to God</span><span>·</span>
-  </div>
-</div>
-
-<!-- DAILY CHECKLIST -->
-<section id="daily">
-  <div class="wrap">
-    <div class="stag reveal">Open This Every Morning</div>
-    <h2 class="sh reveal">Daily <em>Checklist</em></h2>
-    <p class="sdesc reveal">Tick each one as you complete it. Reset every morning. This is your day. Every box ticked is a vote for the man you are becoming.</p>
-
-    <ul class="checklist reveal" id="checklist">
-      <li data-id="0">
-        <div class="check-box"></div>
-        <div class="check-content">
-          <span class="check-main">Morning Grooming</span>
-          <span class="check-sub">Face wash → moisturiser → SPF. Brush teeth. Make bed. Phone face down until first task done.</span>
-        </div>
-      </li>
-      <li data-id="1">
-        <div class="check-box"></div>
-        <div class="check-content">
-          <span class="check-main">2 Hours Prayer <span class="check-badge">NON-NEGOTIABLE</span></span>
-          <span class="check-sub">Deep, focused, aggressive. Speaking in tongues. No phone in the room. God first.</span>
-        </div>
-      </li>
-      <li data-id="2">
-        <div class="check-box"></div>
-        <div class="check-content">
-          <span class="check-main">2 Hours Bible Study <span class="check-badge">NON-NEGOTIABLE</span></span>
-          <span class="check-sub">With journal. Full focus. Study with intention, connect Scripture to your life and goals.</span>
-        </div>
-      </li>
-      <li data-id="3">
-        <div class="check-box"></div>
-        <div class="check-content">
-          <span class="check-main">4 Audio Teachings</span>
-          <span class="check-sub">Play during prayer walk, eating, or chores. Absorb consistently. These compound into deep knowledge.</span>
-        </div>
-      </li>
-      <li data-id="4">
-        <div class="check-box"></div>
-        <div class="check-content">
-          <span class="check-main">Prayer Walk — 10,000 Steps</span>
-          <span class="check-sub">Walk outside, pray aggressively. Audio teachings in background. Steps + Spirit + learning at once.</span>
-        </div>
-      </li>
-      <li data-id="5">
-        <div class="check-box"></div>
-        <div class="check-content">
-          <span class="check-main">Agency Work — Outreach <span class="check-badge">10–15 DAILY</span></span>
-          <span class="check-sub">WhatsApp, LinkedIn, church network, business groups. Build and deliver client websites. No zero days.</span>
-        </div>
-      </li>
-      <li data-id="6">
-        <div class="check-box"></div>
-        <div class="check-content">
-          <span class="check-main">Coding & Learning <span class="check-badge">~6 HRS TODAY</span></span>
-          <span class="check-sub">40 hours weekly. Python → APIs → Docker → Linux → AWS. Real projects. Every session commits to GitHub.</span>
-        </div>
-      </li>
-      <li data-id="7">
-        <div class="check-box"></div>
-        <div class="check-content">
-          <span class="check-main">Workout <span class="check-badge">5×/WEEK</span></span>
-          <span class="check-sub">Put shoes on first — everything follows. Compound movements. Progressive overload every 2 weeks.</span>
-        </div>
-      </li>
-      <li data-id="8">
-        <div class="check-box"></div>
-        <div class="check-content">
-          <span class="check-main">16-Hour Fast + Eat Clean</span>
-          <span class="check-sub">Fast window respected. Break at correct time: protein + veg first. 2,000–2,400 cal in eating window. Zero junk.</span>
-        </div>
-      </li>
-      <li data-id="9">
-        <div class="check-box"></div>
-        <div class="check-content">
-          <span class="check-main">American Content + TED Talk</span>
-          <span class="check-sub">30–60 mins American shows, repeat lines aloud. 1 TED Talk actively watched. One lesson extracted.</span>
-        </div>
-      </li>
-      <li data-id="10">
-        <div class="check-box"></div>
-        <div class="check-content">
-          <span class="check-main">Reading — 20–30 mins</span>
-          <span class="check-sub">Physical book every night. Business, mindset, personal development. 8+ books across 2 years.</span>
-        </div>
-      </li>
-      <li data-id="11">
-        <div class="check-box"></div>
-        <div class="check-content">
-          <span class="check-main">Night Journal</span>
-          <span class="check-sub">3 wins today. 1 thing to fix. Tomorrow's single most important task + exact start time. Decide tonight.</span>
-        </div>
-      </li>
-      <li data-id="12">
-        <div class="check-box"></div>
-        <div class="check-content">
-          <span class="check-main">Night Grooming + Phone Off</span>
-          <span class="check-sub">Face wash → night moisturiser. Pray. Phone outside bedroom. 8 hours sleep. Recovery is not laziness.</span>
-        </div>
-      </li>
-    </ul>
-    <div style="display:flex;align-items:center;gap:20px;margin-top:20px;">
-      <button class="reset-btn" onclick="resetChecklist()">Reset Today's Checklist</button>
-      <span style="font-family:'Syne Mono',monospace;font-size:.65rem;color:var(--dim);">Progress: <span id="prog-text" style="color:var(--gold);">0 / 13</span></span>
-    </div>
-  </div>
-</section>
-
-<!-- ANTI-VISION -->
-<div class="proc-sect" id="antivision">
-  <div style="position:relative;z-index:2;">
-    <h2 class="proc-h">Read This When You<br>Want to Give Up</h2>
-    <p class="proc-sub">This is what your life looks like if nothing changes. Read it. Feel it. Then get up.</p>
-    <div class="pgrid">
-      <div class="prc"><div class="prc-n">30</div><h3>Still Waiting</h3><p>You are 30. Same weight. Same phone habits. Still saying you will start properly soon. The people you went to school with have moved on. You are in the same place, just older and more tired.</p></div>
-      <div class="prc"><div class="prc-n">₦0</div><h3>No Savings</h3><p>No apartment. No company. No portfolio. No savings. The CS degree sits unused. Every month is a struggle. The financial pressure has become normal — and that is the most dangerous thing.</p></div>
-      <div class="prc"><div class="prc-n">—</div><h3>No Progress</h3><p>People have stopped expecting much from you. Worse — you have stopped expecting much from yourself. The dreams are still there but the belief that you can reach them is almost gone.</p></div>
-    </div>
-    <div class="proc-rule">
-      <p>"Every day you choose Twitter over the work, you are choosing that version of yourself at 30. Every day you open the laptop and do the work, you are choosing the other one. It really is that simple."</p>
-    </div>
-  </div>
-</div>
-
-<!-- VISION -->
-<section id="vision">
-  <div class="wrap">
-    <div class="stag reveal">Section 01</div>
-    <h2 class="sh reveal">Who I Will <em>Become</em><br>by May 8, 2028</h2>
-    <div class="vgrid reveal">
-      <div class="vcard"><span class="vi">🙏</span><h3>Man of God</h3><p>Prayer and Bible study daily. 4 audio teachings absorbed every day. Weekly vigil. Evangelism 3× weekly. Rooted, unshakeable, led by the Spirit.</p></div>
-      <div class="vcard"><span class="vi">💪</span><h3>Lean & Strong</h3><p>83–85 kg at 6ft. 10–12% body fat. Visible abs, V-shape, strong arms. The body that signals the discipline you carry inside.</p></div>
-      <div class="vcard"><span class="vi">💻</span><h3>Software Agency Owner</h3><p>Building websites and custom web apps. WordPress, custom HTML/CSS/JS, backend APIs. A profitable software company built from scratch.</p></div>
-      <div class="vcard"><span class="vi">🌍</span><h3>Remote Developer</h3><p>Backend and DevOps skills earning at international rates. AWS certified. Remote contracts. Financially free from local market limitations.</p></div>
-      <div class="vcard"><span class="vi">👑</span><h3>High-Value Man</h3><p>Well-groomed, clear skin, signature cologne, sharp posture, deliberate speech. A man who commands every room before he speaks.</p></div>
-      <div class="vcard"><span class="vi">🏠</span><h3>Financially Free</h3><p>Own apartment. ₦30m–₦60m+ saved. Car. Ability to bless family and church generously. Total peace. ₦50m net worth trajectory.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- FASTING + EATING -->
-<section class="sec-alt">
-  <div class="wrap">
-    <div class="stag reveal">Section 02</div>
-    <h2 class="sh reveal">Fasting &<br><em>Eating Protocol</em></h2>
-    <div class="fast reveal">
-      <h3>16-Hour Daily Fast</h3>
-      <p>Fast 16 hours every day counted from your last meal the night before. Your eating window is 8 hours only. If you eat last at 8pm, you do not eat again until 12pm the next day. During the fast: water, black coffee, plain herbal tea only — nothing with calories.</p>
-      <div class="fast-flow">
-        <div class="fast-step">Last meal 8pm</div>
-        <div class="fast-arr">→</div>
-        <div class="fast-step">Fast overnight</div>
-        <div class="fast-arr">→</div>
-        <div class="fast-step">Break at 12pm</div>
-        <div class="fast-arr">→</div>
-        <div class="fast-step">Protein + veg first</div>
-        <div class="fast-arr">→</div>
-        <div class="fast-step">Eat until 8pm</div>
-        <div class="fast-arr">→</div>
-        <div class="fast-step">Repeat</div>
-      </div>
-    </div>
-    <div class="tcol reveal">
-      <div class="tcard">
-        <h3>What to Eat (12pm–8pm)</h3>
-        <ul>
-          <li>High protein every meal: eggs, chicken, fish (Titus/sardines), beans, Greek yoghurt</li>
-          <li>Controlled carbs: oats, sweet potato, brown rice, plantain — not every meal</li>
-          <li>Vegetables: as much as you want, always included</li>
-          <li>Target: 2,000–2,400 calories in your eating window</li>
-          <li>3 litres of water total across the day</li>
-        </ul>
-      </div>
-      <div class="tcard">
-        <h3>Never Touch These</h3>
-        <ul>
-          <li>Zero soda — permanently, not temporarily</li>
-          <li>Zero fruit juice — liquid sugar, no nutritional benefit</li>
-          <li>Zero junk food — no fried snacks, no fast food</li>
-          <li>Zero added sugar in drinks or food</li>
-          <li>Allowed drinks: water, zobo (no sugar), herbal tea, coconut water, tiger nut milk</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CODING -->
-<section id="coding">
-  <div class="wrap">
-    <div class="stag reveal">Section 03</div>
-    <h2 class="sh reveal">Coding Roadmap —<br><em>40 Hours Weekly</em></h2>
-    <p class="sdesc reveal">You already build websites. Now you go deeper — backend, servers, cloud, automation. 40 hours weekly is professional level. This is what separates people who break into tech from people who stay talking about it.</p>
-    <div class="code-box reveal">
-      <div class="code-cols">
-        <div class="code-col">
-          <h4>Year 1 (May 2026 – May 2027) — Full Stack + Backend</h4>
-          <ul>
-            <li>HTML, CSS, JavaScript — deepen and sharpen what you already know</li>
-            <li>Build custom websites from scratch — no templates, clean code</li>
-            <li>Python: fundamentals to advanced — OOP, file handling, error handling</li>
-            <li>REST APIs with FastAPI or Django REST Framework — build 5–8 real APIs</li>
-            <li>PostgreSQL and SQL — queries, joins, indexes, real databases</li>
-            <li>Git and GitHub — every single project public and committed daily</li>
-            <li>Linux command line — master 40 key commands cold</li>
-            <li>Docker — containerise every project you build from now on</li>
-            <li>Build 10–15 real deployed projects. Not tutorials. Real working apps.</li>
-          </ul>
-        </div>
-        <div class="code-col">
-          <h4>Year 2 (May 2027 – May 2028) — DevOps & Remote Contracts</h4>
-          <ul>
-            <li>AWS: EC2, S3, RDS, Lambda, IAM — hands-on with free tier daily</li>
-            <li>CI/CD: GitHub Actions — automate all your builds and deployments</li>
-            <li>Kubernetes: pods, deployments, services — fundamentals solid</li>
-            <li>AWS Cloud Practitioner certification (Month 14–16)</li>
-            <li>AWS Solutions Architect Associate (Month 18–20)</li>
-            <li>Apply: Toptal, Turing, Remote.co, We Work Remotely, LinkedIn remote</li>
-            <li>Target: $50k–$100k remote role or equivalent contracts by Month 24</li>
-            <li>Register on Upwork and Fiverr this week — start earning internationally now</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- GROOMING -->
-<section id="grooming" class="sec-alt">
-  <div class="wrap">
-    <div class="stag reveal">Section 04</div>
-    <h2 class="sh reveal">Skincare &<br><em>Grooming System</em></h2>
-    <p class="sdesc reveal">Consistency beats expensive products. 60–90 days of these routines transforms how you look, how you feel, and how every room receives you. This is discipline made visible.</p>
-    <div class="tcol reveal">
-      <div class="tcard">
-        <h3>☀️ Morning — Every Single Day</h3>
-        <ul>
-          <li>Gentle face wash — CeraVe or quality local brand. 30 seconds, rinse cold.</li>
-          <li>Moisturiser with SPF 30+ — Lagos sun causes dark spots without this. Every morning.</li>
-          <li>Lip balm. Deodorant. Signature cologne. Small details that signal self-respect.</li>
-        </ul>
-      </div>
-      <div class="tcard">
-        <h3>🌙 Night — Every Single Day</h3>
-        <ul>
-          <li>Same gentle face cleanser. Remove oil, sweat, Lagos pollution. Never skip this.</li>
-          <li>Night moisturiser — skin repairs during sleep. Feed it. After 90 days add Vitamin C serum.</li>
-          <li>3 litres of water daily — clears skin faster than any cream in Lagos heat.</li>
-        </ul>
-      </div>
-    </div>
-    <div class="ggrid reveal">
-      <div class="gcard"><span class="ge">✂️</span><h4>Haircut — Every 14 Days</h4><p>Budget for it. A fresh cut signals discipline before you open your mouth. Non-negotiable.</p></div>
-      <div class="gcard"><span class="ge">💅</span><h4>Nails — Weekly</h4><p>Clean and trimmed. Fingers and toes. People notice before they notice your shoes.</p></div>
-      <div class="gcard"><span class="ge">🧴</span><h4>Body — Post-Shower</h4><p>Body scrub 3×/week. Shea butter or body lotion after every shower. Smooth, even-toned skin.</p></div>
-      <div class="gcard"><span class="ge">🦷</span><h4>Teeth & Breath</h4><p>Brush twice daily. Tongue scraper. Floss 3×/week. Fresh breath is non-negotiable.</p></div>
-      <div class="gcard"><span class="ge">🌸</span><h4>Signature Cologne</h4><p>One clean quality cologne worn consistently every day. It becomes your identity before you speak.</p></div>
-      <div class="gcard"><span class="ge">🧍</span><h4>Posture — Always</h4><p>Shoulders back, chin level, chest open. At 6ft this alone transforms how people see you.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- FITNESS -->
-<section id="fitness">
-  <div class="wrap">
-    <div class="stag reveal">Section 05</div>
-    <h2 class="sh reveal">Fitness &<br><em>Body Transformation</em></h2>
-    <p class="sdesc reveal">96 kg → 83–85 kg over 24 months. At 6ft this puts you at 10–12% body fat. Visible abs, V-shape, strong arms. The physique that matches the man you are becoming.</p>
-    <div class="wbars reveal">
-      <div class="wcol"><div class="wval">96</div><div class="wbar wb0" data-h="100"></div><div class="wlbl">Start<br>May '26</div></div>
-      <div class="wcol"><div class="wval">92</div><div class="wbar wb1" data-h="86"></div><div class="wlbl">Month 6<br>Oct '26</div></div>
-      <div class="wcol"><div class="wval">89</div><div class="wbar wb1" data-h="76"></div><div class="wlbl">Month 10<br>Feb '27</div></div>
-      <div class="wcol"><div class="wval">87</div><div class="wbar wb1" data-h="69"></div><div class="wlbl">Month 14<br>Jun '27</div></div>
-      <div class="wcol"><div class="wval">85</div><div class="wbar wb1" data-h="63"></div><div class="wlbl">Month 18<br>Oct '27</div></div>
-      <div class="wcol"><div class="wval">84</div><div class="wbar wb2" data-h="57"></div><div class="wlbl">Month 24<br>Apr '28 ✓</div></div>
-    </div>
-    <div class="rule"></div>
-    <div class="vgrid reveal">
-      <div class="vcard"><span class="vi" style="font-family:'Syne Mono',monospace;font-size:.9rem;">MON</span><h3>Push</h3><p>Chest, shoulders, triceps. Push-ups, dips, overhead press. Build the chest and shoulders that fill a shirt.</p></div>
-      <div class="vcard"><span class="vi" style="font-family:'Syne Mono',monospace;font-size:.9rem;">TUE</span><h3>Pull</h3><p>Back and biceps. Pull-ups, rows, curls. Build the V-taper. At 6ft this looks exceptional.</p></div>
-      <div class="vcard"><span class="vi" style="font-family:'Syne Mono',monospace;font-size:.9rem;">WED</span><h3>Legs</h3><p>Squats, lunges, Bulgarian splits, calf raises. Strong legs, strong frame, strong man.</p></div>
-      <div class="vcard"><span class="vi" style="font-family:'Syne Mono',monospace;font-size:.9rem;">THU</span><h3>Full Body + Core</h3><p>Compound circuits, planks, carries. Functional strength that shows when you move and stand.</p></div>
-      <div class="vcard"><span class="vi" style="font-family:'Syne Mono',monospace;font-size:.9rem;">FRI</span><h3>Cardio + Mobility</h3><p>20–30 min jog or bike. Full body stretch. Hip flexors, chest, hamstrings. Recovery is training.</p></div>
-      <div class="vcard"><span class="vi" style="font-family:'Syne Mono',monospace;font-size:.9rem;">SUN</span><h3>Complete Rest</h3><p>Church. God. Family. Rest is when growth happens. Do not feel guilty for resting on Sunday.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- CAREER -->
-<section id="career" class="sec-alt">
-  <div class="wrap">
-    <div class="stag reveal">Section 06</div>
-    <h2 class="sh reveal">Career &<br><em>Income Plan</em></h2>
-    <table class="itable reveal">
-      <tbody>
-        <tr><td class="it-p">Month 1–4</td><td class="it-a">₦100–400k</td><td class="it-d">First 3–5 website projects delivered. Portfolio and testimonials being built. Upwork profile live and active.</td></tr>
-        <tr><td class="it-p">Month 5–8</td><td class="it-a">₦400k–1.5m</td><td class="it-d">Agency momentum. Referrals starting. Custom websites and WordPress sites. International clients through Upwork.</td></tr>
-        <tr><td class="it-p">Month 9–14</td><td class="it-a">₦1.5m–4m</td><td class="it-d">Consistent agency income. Backend freelance gigs starting. GitHub portfolio strong and visible internationally.</td></tr>
-        <tr><td class="it-p">Month 15–20</td><td class="it-a">₦4m–10m</td><td class="it-d">Growing agency plus junior remote backend/DevOps contracts. Multiple income streams running simultaneously.</td></tr>
-        <tr><td class="it-p">Month 21–24</td><td class="it-a">₦10m–20m</td><td class="it-d">Full software company. Custom apps, backend, DevOps. Mid-level remote role or contracts. AWS certified.</td></tr>
-      </tbody>
-    </table>
-    <div class="tcol reveal">
-      <div class="tcard">
-        <h3>Start This Week</h3>
-        <ul>
-          <li>Register on Upwork and Fiverr today — not this week, today</li>
-          <li>Build 3 portfolio websites immediately — custom built, not templates</li>
-          <li>Send first 10 outreach messages today before you sleep</li>
-          <li>Price websites at ₦50,000–₦150,000 to start</li>
-          <li>Raise prices every 3 months as portfolio grows</li>
-        </ul>
-      </div>
-      <div class="tcard">
-        <h3>Every Single Day</h3>
-        <ul>
-          <li>10–15 outreach messages without exception — no zero days</li>
-          <li>Collect a testimonial from every client you deliver</li>
-          <li>Commit at least one project update to GitHub</li>
-          <li>Church and community network — trust beats cold outreach in Naija</li>
-          <li>Save 25–30% of every naira earned, every month, automatically</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PHASES -->
-<section id="phases" class="sec-dark">
-  <div class="wrap">
-    <div class="stag reveal">Section 07</div>
-    <h2 class="sh reveal">The 3<br><em>Phases</em></h2>
-    <p class="sdesc reveal">8 months each. Review on the 1st of every month. Adjust nothing hastily — stay the course.</p>
-    <div class="phases reveal">
-      <div class="pcard">
-        <div class="pleft p1l" data-n="01">
-          <div class="ptag">Phase One</div>
-          <div class="pname">FOUNDATION</div>
-          <div class="pdates">May 8 – Jan 8, 2027</div>
-        </div>
-        <div class="pright">
-          <ul>
-            <li>2 hrs prayer and 2 hrs Bible study daily locked in from Day 1. No exceptions.</li>
-            <li>4 audio teachings daily and vigil every single week — consistent from the start.</li>
-            <li>16-hour daily fast established and consistent. Eating window respected every day.</li>
-            <li>Drop to 90–92 kg. Workout 5×/week. Walk 10,000 steps daily without fail.</li>
-            <li>Skincare morning and night every single day. Haircut every 14 days.</li>
-            <li>8–12 website projects delivered — custom sites and WordPress. Portfolio strong.</li>
-            <li>Python advanced, 8–12 real GitHub projects live and deployed.</li>
-            <li>Upwork profile active and earning. First international clients secured.</li>
-            <li>3–4 books completed. American content and TED Talk daily from Day 1.</li>
-            <li>Saving 20–30% monthly. Morning phone-free block non-negotiable every day.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="pcard">
-        <div class="pleft p2l" data-n="02">
-          <div class="ptag">Phase Two</div>
-          <div class="pname">MOMENTUM</div>
-          <div class="pdates">Jan 8, 2027 – Sep 8, 2027</div>
-        </div>
-        <div class="pright">
-          <ul>
-            <li>Prayer and study deeper and more natural. Evangelism flowing consistently.</li>
-            <li>Weight at 86–89 kg. Visible muscle development. Body transformation clearly evident.</li>
-            <li>Skin noticeably clearer. Style intentional. Posture and presence elevated in every room.</li>
-            <li>₦1,500,000–₦5,000,000/month. Custom web apps added to service offering.</li>
-            <li>REST APIs and Docker mastered. First remote freelance contracts started.</li>
-            <li>Own apartment secured or payment plan fully active.</li>
-            <li>4 more books read. ₦8m–₦20m total saved. Investing basics in place.</li>
-          </ul>
-        </div>
-      </div>
-      <div class="pcard">
-        <div class="pleft p3l" data-n="03">
-          <div class="ptag">Phase Three</div>
-          <div class="pname">HARVEST</div>
-          <div class="pdates">Sep 8, 2027 – May 8, 2028</div>
-        </div>
-        <div class="pright">
-          <ul>
-            <li>Consistent soul winning. Evangelism 3×/week natural and flowing.</li>
-            <li>83–85 kg lean and permanent. 24 months of training visible in every room you enter.</li>
-            <li>Full high-value appearance completely locked in. Skin, hair, style, fragrance — all intentional.</li>
-            <li>₦5,000,000–₦20,000,000/month. Custom apps, backend, DevOps services running.</li>
-            <li>AWS Cloud Practitioner certified. Solutions Architect in progress.</li>
-            <li>Remote contract or mid-level remote role active and paying well.</li>
-            <li>8+ books read across 2 years. ₦30m–₦60m+ saved. Own place. Blessing family and church.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- WEEKLY / MONTHLY -->
-<section class="sec-alt">
-  <div class="wrap">
-    <div class="stag reveal">Section 08</div>
-    <h2 class="sh reveal">Weekly &<br><em>Monthly Rhythm</em></h2>
-    <div class="tcol reveal">
-      <div class="tcard">
-        <h3>Every Week</h3>
-        <ul>
-          <li>Evangelise 3 times — street, one-on-one, or online</li>
-          <li>Vigil once — 1–3 hours deep personal time with God, every week</li>
-          <li>Sunday: church, teach one person something valuable</li>
-          <li>Sunday night journal: weight, income, 3 wins, 1 thing to fix honestly</li>
-        </ul>
-      </div>
-      <div class="tcard">
-        <h3>1st of Every Month</h3>
-        <ul>
-          <li>Weigh + measure waist, chest, arms + take one progress photo</li>
-          <li>Review income and savings — hitting 25–30% saved?</li>
-          <li>Rate discipline 1–10. Below 6: simplify and recommit immediately</li>
-          <li>Count projects and clients delivered that month</li>
-          <li>Celebrate one win. Read this plan from the top. Adjust nothing hastily.</li>
-        </ul>
-      </div>
-    </div>
-    <div class="rule"></div>
-    <div class="stag reveal">When It Gets Hard</div>
-    <div class="tcol reveal">
-      <div class="tcard">
-        <h3>Power / Internet Out</h3>
-        <ul>
-          <li>Prayer and Bible reading with journal — always available offline</li>
-          <li>Prayer walk — 10,000 steps, requires absolutely nothing</li>
-          <li>Draft outreach messages to send when connection returns</li>
-          <li>Workout — completely offline, zero excuses ever</li>
-        </ul>
-      </div>
-      <div class="tcard">
-        <h3>Motivation is Zero</h3>
-        <ul>
-          <li>5-minute rule: open the laptop and write one line of code only</li>
-          <li>Scroll up and read the anti-vision section on this page</li>
-          <li>Visualise your life unchanged at 30. Feel it. Then move.</li>
-          <li>Do 50% of the day — never do zero. Zero kills habits permanently.</li>
-        </ul>
-      </div>
-      <div class="tcard">
-        <h3>You Miss a Day</h3>
-        <ul>
-          <li>Do not miss two. The second miss is where habits die for good.</li>
-          <li>No guilt spiral — acknowledge it and execute 50% today</li>
-          <li>Write what caused the miss and one system fix to prevent it repeating</li>
-          <li>Tomorrow is a clean start. Every morning is a new Day 1.</li>
-        </ul>
-      </div>
-      <div class="tcard">
-        <h3>Clients are Slow</h3>
-        <ul>
-          <li>Double outreach to 20+ messages that day immediately</li>
-          <li>Offer existing happy clients an upgrade or referral deal</li>
-          <li>Use slow periods to sharpen your skills and build portfolio</li>
-          <li>Church and community — trust always beats cold outreach in Naija</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PLEDGE -->
-<div class="pledge" id="pledge">
-  <div style="position:relative;z-index:2;max-width:800px;margin:0 auto;">
-    <div class="stag reveal" style="justify-content:center;margin-bottom:32px;">My Covenant — May 8, 2026</div>
-    <p class="pledge-q reveal">I am not where I want to be yet. But I am building the man I was created to be. He is not waiting for me to feel motivated or ready. He is waiting for me to decide — today — to show up every single day for the next 730 days whether I feel like it or not.</p>
-    <div class="pledge-line reveal"></div>
-    <p class="reveal" style="font-family:'Syne Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.2em;text-transform:uppercase;">Signed with full intention and faith in God</p>
-    <div class="pledge-sig reveal"></div>
-    <p class="pledge-hint reveal">Your signature. Your name on this.</p>
-    <p class="pledge-date reveal">May 8, 2026 · Day 1 · Glory to God</p>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <span>Flash · 2-Year Blueprint · May 8 2026 – May 8 2028</span>
-  <span id="fday">Day —</span>
-  <span>Glory to God.</span>
-</footer>
 
 <script>
-// COUNTDOWN
-function updateTime(){
-  const end = new Date('2028-05-08T00:00:00');
-  const now = new Date();
-  const diff = end - now;
-  if(diff <= 0){
-    ['cd-d','cd-h','cd-m','cd-s'].forEach(id=>document.getElementById(id).textContent='0');
-    return;
-  }
-  const d = Math.floor(diff/(1000*60*60*24));
-  const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
-  const m = Math.floor((diff%(1000*60*60))/(1000*60));
-  const s = Math.floor((diff%(1000*60))/1000);
-  document.getElementById('cd-d').textContent = d;
-  document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
-  document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
-  document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
-}
-setInterval(updateTime,1000);
-updateTime();
+const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const DAYS_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const FIXED_EVENING = ['Wednesday','Saturday'];
 
-// DAY COUNT
-function updateDay(){
-  const start = new Date('2026-05-08T00:00:00');
-  const now = new Date();
-  const day = Math.max(1, Math.floor((now-start)/(1000*60*60*24))+1);
-  const txt = 'Day ' + day + ' of 730';
-  document.getElementById('liveday').textContent = txt;
-  document.getElementById('fday').textContent = txt;
-}
-updateDay();
-
-// CHECKLIST with localStorage
-const KEY = 'flash_checklist_' + new Date().toDateString();
-
-function loadChecklist(){
-  const saved = JSON.parse(localStorage.getItem(KEY) || '[]');
-  document.querySelectorAll('#checklist li').forEach(li=>{
-    const id = parseInt(li.dataset.id);
-    if(saved.includes(id)) li.classList.add('done');
-  });
-  updateProgress();
-}
-
-function saveChecklist(){
-  const done = [];
-  document.querySelectorAll('#checklist li.done').forEach(li=>done.push(parseInt(li.dataset.id)));
-  localStorage.setItem(KEY, JSON.stringify(done));
-  updateProgress();
-}
-
-function updateProgress(){
-  const total = document.querySelectorAll('#checklist li').length;
-  const done = document.querySelectorAll('#checklist li.done').length;
-  document.getElementById('prog-text').textContent = done + ' / ' + total;
-}
-
-function resetChecklist(){
-  document.querySelectorAll('#checklist li').forEach(li=>li.classList.remove('done'));
-  localStorage.removeItem(KEY);
-  updateProgress();
-}
-
-document.querySelectorAll('#checklist li').forEach(li=>{
-  li.addEventListener('click',()=>{
-    li.classList.toggle('done');
-    saveChecklist();
+// ---- Tabs ----
+document.querySelectorAll('#tabs button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#tabs button').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('view-'+btn.dataset.view).classList.add('active');
   });
 });
 
-loadChecklist();
+// ---- Storage helpers ----
+async function getStore(key, fallback){
+  try{
+    const r = await window.storage.get(key);
+    return r ? JSON.parse(r.value) : fallback;
+  }catch(e){ return fallback; }
+}
+async function setStore(key, value){
+  try{ await window.storage.set(key, JSON.stringify(value)); }catch(e){ console.error(e); }
+}
 
-// REVEAL
-const obs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('in');
-      e.target.querySelectorAll('.wbar[data-h]').forEach(b=>{
-        setTimeout(()=>{ b.style.height=b.dataset.h+'%'; },150);
-      });
-    }
+// ---- State ----
+let thirdFastDay = 'Sunday';
+let vigilDay = 'Tuesday';
+let evangDays = [];
+let debtTarget = 1500000;
+let incomeLog = [];
+let saveRate = 25;
+let checklistState = {};
+let sleepLog = [];
+let accName = '';
+let accWeekChecked = false;
+let clientPipeline = [];
+let appLog = [];
+let bookLog = [];
+let csBookLog = [];
+
+const CHECKLIST_ITEMS = [
+  {id:'retainer', text:'Pushed retainer conversion with at least 1 client this week'},
+  {id:'python', text:'Hit study hours on non-evangelism days'},
+  {id:'training', text:'3 training sessions logged'},
+  {id:'reflection', text:'Sunday 10-minute reflection done'},
+  {id:'income', text:"This month's income logged in the Money tab"},
+];
+
+async function loadState(){
+  thirdFastDay = await getStore('third-fast-day', 'Sunday');
+  vigilDay = await getStore('vigil-day', 'Tuesday');
+  evangDays = await getStore('evangelism-days', []);
+  debtTarget = await getStore('debt-target', 1500000);
+  incomeLog = await getStore('income-log', []);
+  saveRate = await getStore('save-rate', 25);
+  checklistState = await getStore('checklist-state', {});
+  sleepLog = await getStore('sleep-log', []);
+  accName = await getStore('acc-name', '');
+  accWeekChecked = await getStore('acc-week-checked', false);
+  clientPipeline = await getStore('client-pipeline', []);
+  appLog = await getStore('app-log', []);
+  bookLog = await getStore('book-log', [
+    {title:'Deep Work — Cal Newport', status:'Reading'},
+    {title:'Atomic Habits — James Clear', status:'Up next'},
+    {title:"Can't Hurt Me — David Goggins", status:'Up next'},
+    {title:'Grit — Angela Duckworth', status:'Up next'},
+    {title:'The Compound Effect — Darren Hardy', status:'Up next'},
+    {title:'Essentialism — Greg McKeown', status:'Up next'},
+    {title:'Mindset — Carol Dweck', status:'Up next'},
+    {title:'Talk Like TED — Carmine Gallo', status:'Up next'},
+    {title:'American Accent Training — Ann Cook', status:'Up next'},
+    {title:'How to Win Friends and Influence People — Dale Carnegie', status:'Up next'},
+    {title:'Never Split the Difference — Chris Voss', status:'Up next'},
+    {title:'The E-Myth Revisited — Michael Gerber', status:'Up next'},
+    {title:'Profit First — Mike Michalowicz', status:'Up next'},
+    {title:'Building a StoryBrand — Donald Miller', status:'Up next'},
+    {title:'Extreme Ownership — Jocko Willink & Leif Babin', status:'Up next'},
+    {title:'Multipliers — Liz Wiseman', status:'Up next'},
+    {title:'The Psychology of Money — Morgan Housel', status:'Up next'},
+  ]);
+  csBookLog = await getStore('cs-book-log', [
+    {title:'Grokking Algorithms — Aditya Bhargava', status:'Reading'},
+    {title:'The Pragmatic Programmer — David Thomas & Andrew Hunt', status:'Up next'},
+    {title:'Fluent Python — Luciano Ramalho', status:'Up next'},
+    {title:'Clean Code — Robert C. Martin', status:'Up next'},
+    {title:'Head First Design Patterns — Eric Freeman & Elisabeth Robson', status:'Up next'},
+    {title:'SQL Performance Explained — Markus Winand', status:'Up next'},
+    {title:'Clean Architecture — Robert C. Martin', status:'Up next'},
+    {title:'Cracking the Coding Interview — Gayle Laakmann McDowell', status:'Up next'},
+    {title:'Designing Data-Intensive Applications — Martin Kleppmann', status:'Up next'},
+    {title:'Site Reliability Engineering — Google', status:'Up next'},
+  ]);
+}
+
+// ---- Today tab ----
+function setupVigilDaySelect(){
+  const sel = document.getElementById('vigilDay');
+  sel.innerHTML = '';
+  DAYS.forEach(d=>{
+    if(d === 'Sunday') return;
+    const opt = document.createElement('option');
+    opt.value = d; opt.textContent = d;
+    if(d === vigilDay) opt.selected = true;
+    sel.appendChild(opt);
   });
-},{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-document.querySelectorAll('.wbar[data-h]').forEach(b=>b.style.height='0%');
+  sel.addEventListener('change', async ()=>{
+    vigilDay = sel.value;
+    await setStore('vigil-day', vigilDay);
+    renderAll();
+  });
+}
 
-// NAV ACTIVE
-const secs = document.querySelectorAll('[id]');
-const links = document.querySelectorAll('.nav-links a');
-window.addEventListener('scroll',()=>{
-  let cur='';
-  secs.forEach(s=>{ if(window.scrollY>=s.offsetTop-160) cur=s.id; });
-  links.forEach(a=>{ a.style.color=a.getAttribute('href')==='#'+cur?'var(--gold)':''; });
+// ---- Today tab ----
+function setupThirdFastDaySelect(){
+  const sel = document.getElementById('thirdFastDay');
+  sel.innerHTML = '';
+  DAYS.forEach(d=>{
+    if(FIXED_EVENING.includes(d)) return;
+    const opt = document.createElement('option');
+    opt.value = d; opt.textContent = d;
+    if(d === thirdFastDay) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  sel.addEventListener('change', async ()=>{
+    thirdFastDay = sel.value;
+    await setStore('third-fast-day', thirdFastDay);
+    renderAll();
+  });
+}
+
+function setupEvangPicker(){
+  const box = document.getElementById('evangDays');
+  box.innerHTML = '';
+  DAYS.forEach(d=>{
+    const chip = document.createElement('div');
+    chip.className = 'day-chip' + (evangDays.includes(d) ? ' on' : '');
+    chip.textContent = DAYS_SHORT[DAYS.indexOf(d)];
+    chip.addEventListener('click', async ()=>{
+      if(evangDays.includes(d)){
+        evangDays = evangDays.filter(x=>x!==d);
+      } else {
+        if(evangDays.length >= 3) evangDays.shift();
+        evangDays.push(d);
+      }
+      await setStore('evangelism-days', evangDays);
+      setupEvangPicker();
+      renderAll();
+    });
+    box.appendChild(chip);
+  });
+}
+
+function isEveningFastDay(dayName){
+  return FIXED_EVENING.includes(dayName) || dayName === thirdFastDay;
+}
+
+function renderToday(){
+  const now = new Date();
+  const dayName = DAYS[now.getDay()];
+  document.getElementById('today-date').textContent = now.toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long'});
+
+  const evening = isEveningFastDay(dayName);
+  document.getElementById('breakTime').textContent = evening ? '6:00 PM' : 'Daily';
+  document.getElementById('breakSub').textContent = evening ? 'extended fast' : 'standard fast';
+  document.getElementById('dayType').textContent = evangDays.includes(dayName) ? 'Evangelism day' : 'Study day';
+  document.getElementById('studyHours').textContent = dayName === 'Sunday' ? '1h coding (rest day)' : (evangDays.includes(dayName) ? '2–3h Python' : '5h Python');
+
+  // ring progress
+  const breakHour = evening ? 18 : 12;
+  const startHour = 0;
+  const nowFrac = now.getHours() + now.getMinutes()/60;
+  let pct = ((nowFrac - startHour) / (breakHour - startHour)) * 100;
+  pct = Math.max(0, Math.min(100, pct));
+  const ring = document.getElementById('fastRing');
+  ring.style.background = `conic-gradient(var(--gold) ${pct}%, var(--panel2) ${pct}%)`;
+
+  // deadlines
+  const laptopDeadline = new Date(2026, 11, 28); // Dec 28 2026
+  const debtDeadline = new Date(2027, 1, 28); // Feb 28 2027
+  const msDay = 1000*60*60*24;
+  const laptopDays = Math.ceil((laptopDeadline - now)/msDay);
+  const debtDays = Math.ceil((debtDeadline - now)/msDay);
+  document.getElementById('laptopDays').textContent = laptopDays > 0 ? laptopDays + ' days' : 'past target';
+  document.getElementById('debtDays').textContent = debtDays > 0 ? debtDays + ' days' : 'past target';
+}
+
+function renderGoals(){
+  const now = new Date();
+  const jobDeadline = new Date(2027, 7, 28); // 12 months from Aug 28 2026
+  const msDay = 1000*60*60*24;
+  const jobDays = Math.ceil((jobDeadline - now)/msDay);
+  document.getElementById('jobTargetDate').textContent = jobDeadline.toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
+  document.getElementById('jobDaysLeft').textContent = jobDays > 0 ? jobDays + ' days' : 'past target';
+  renderAppLog();
+}
+
+// ---- Sleep ----
+function renderSleep(){
+  const logEl = document.getElementById('sleepLog');
+  logEl.innerHTML = '';
+  sleepLog.slice().reverse().forEach((entry, revIdx)=>{
+    const idx = sleepLog.length - 1 - revIdx;
+    const row = document.createElement('div');
+    row.className = 'log-item';
+    row.innerHTML = `<span>${entry.date}</span><span style="font-family:'IBM Plex Mono',monospace;">${entry.hours}h <span style="cursor:pointer;color:var(--text-dimmer);margin-left:8px;" data-idx="${idx}" class="delSleepBtn">✕</span></span>`;
+    logEl.appendChild(row);
+  });
+  logEl.querySelectorAll('.delSleepBtn').forEach(b=>{
+    b.addEventListener('click', async (e)=>{
+      const idx = parseInt(e.target.dataset.idx);
+      sleepLog.splice(idx,1);
+      await setStore('sleep-log', sleepLog);
+      renderSleep();
+    });
+  });
+  const last7 = sleepLog.slice(-7);
+  const avg = last7.length ? (last7.reduce((s,e)=>s+Number(e.hours),0)/last7.length).toFixed(1) : null;
+  document.getElementById('sleepAvg').textContent = avg ? avg + 'h' : '—';
+}
+
+document.getElementById('addSleepBtn').addEventListener('click', async ()=>{
+  const date = document.getElementById('sleepDate').value.trim();
+  const hours = document.getElementById('sleepHours').value;
+  if(!date || !hours) return;
+  sleepLog.push({date, hours});
+  await setStore('sleep-log', sleepLog);
+  document.getElementById('sleepDate').value = '';
+  document.getElementById('sleepHours').value = '';
+  renderSleep();
 });
+
+// ---- Accountability ----
+function renderAccountability(){
+  document.getElementById('accName').value = accName;
+  document.getElementById('accNameShown').textContent = accName || 'your accountability partner';
+  document.getElementById('accCheckWeek').checked = accWeekChecked;
+  document.getElementById('accLabelWeek').className = accWeekChecked ? 'done' : '';
+}
+
+document.getElementById('saveAccBtn').addEventListener('click', async ()=>{
+  accName = document.getElementById('accName').value.trim();
+  await setStore('acc-name', accName);
+  renderAccountability();
+});
+
+document.getElementById('accCheckWeek').addEventListener('change', async (e)=>{
+  accWeekChecked = e.target.checked;
+  await setStore('acc-week-checked', accWeekChecked);
+  renderAccountability();
+});
+
+// ---- Client pipeline ----
+function renderPipeline(){
+  const logEl = document.getElementById('clientPipeline');
+  logEl.innerHTML = '';
+  clientPipeline.slice().reverse().forEach((entry, revIdx)=>{
+    const idx = clientPipeline.length - 1 - revIdx;
+    const row = document.createElement('div');
+    row.className = 'log-item';
+    row.innerHTML = `<span>${entry.name}</span><span><span class="tag gold">${entry.stage}</span> <span style="cursor:pointer;color:var(--text-dimmer);margin-left:8px;" data-idx="${idx}" class="delClientBtn">✕</span></span>`;
+    logEl.appendChild(row);
+  });
+  logEl.querySelectorAll('.delClientBtn').forEach(b=>{
+    b.addEventListener('click', async (e)=>{
+      const idx = parseInt(e.target.dataset.idx);
+      clientPipeline.splice(idx,1);
+      await setStore('client-pipeline', clientPipeline);
+      renderPipeline();
+    });
+  });
+}
+
+document.getElementById('addClientBtn').addEventListener('click', async ()=>{
+  const name = document.getElementById('clientName').value.trim();
+  const stage = document.getElementById('clientStage').value;
+  if(!name) return;
+  clientPipeline.push({name, stage});
+  await setStore('client-pipeline', clientPipeline);
+  document.getElementById('clientName').value = '';
+  renderPipeline();
+});
+
+// ---- Books ----
+function renderBooks(){
+  const logEl = document.getElementById('bookLog');
+  logEl.innerHTML = '';
+  bookLog.slice().reverse().forEach((entry, revIdx)=>{
+    const idx = bookLog.length - 1 - revIdx;
+    const row = document.createElement('div');
+    row.className = 'log-item';
+    row.innerHTML = `<span>${entry.title}</span><span><span class="tag teal">${entry.status}</span> <span style="cursor:pointer;color:var(--text-dimmer);margin-left:8px;" data-idx="${idx}" class="delBookBtn">✕</span></span>`;
+    logEl.appendChild(row);
+  });
+  logEl.querySelectorAll('.delBookBtn').forEach(b=>{
+    b.addEventListener('click', async (e)=>{
+      const idx = parseInt(e.target.dataset.idx);
+      bookLog.splice(idx,1);
+      await setStore('book-log', bookLog);
+      renderBooks();
+    });
+  });
+}
+
+document.getElementById('addBookBtn').addEventListener('click', async ()=>{
+  const title = document.getElementById('bookTitle').value.trim();
+  const status = document.getElementById('bookStatus').value;
+  if(!title) return;
+  bookLog.push({title, status});
+  await setStore('book-log', bookLog);
+  document.getElementById('bookTitle').value = '';
+  renderBooks();
+});
+
+function renderCsBooks(){
+  const logEl = document.getElementById('csBookLog');
+  logEl.innerHTML = '';
+  csBookLog.slice().reverse().forEach((entry, revIdx)=>{
+    const idx = csBookLog.length - 1 - revIdx;
+    const row = document.createElement('div');
+    row.className = 'log-item';
+    row.innerHTML = `<span>${entry.title}</span><span><span class="tag wine">${entry.status}</span> <span style="cursor:pointer;color:var(--text-dimmer);margin-left:8px;" data-idx="${idx}" class="delCsBookBtn">✕</span></span>`;
+    logEl.appendChild(row);
+  });
+  logEl.querySelectorAll('.delCsBookBtn').forEach(b=>{
+    b.addEventListener('click', async (e)=>{
+      const idx = parseInt(e.target.dataset.idx);
+      csBookLog.splice(idx,1);
+      await setStore('cs-book-log', csBookLog);
+      renderCsBooks();
+    });
+  });
+}
+
+document.getElementById('addCsBookBtn').addEventListener('click', async ()=>{
+  const title = document.getElementById('csBookTitle').value.trim();
+  const status = document.getElementById('csBookStatus').value;
+  if(!title) return;
+  csBookLog.push({title, status});
+  await setStore('cs-book-log', csBookLog);
+  document.getElementById('csBookTitle').value = '';
+  renderCsBooks();
+});
+
+// ---- Job applications ----
+function renderAppLog(){
+  const logEl = document.getElementById('appLog');
+  logEl.innerHTML = '';
+  appLog.slice().reverse().forEach((entry, revIdx)=>{
+    const idx = appLog.length - 1 - revIdx;
+    const row = document.createElement('div');
+    row.className = 'log-item';
+    row.innerHTML = `<span>${entry.company}</span><span><span class="tag wine">${entry.stage}</span> <span style="cursor:pointer;color:var(--text-dimmer);margin-left:8px;" data-idx="${idx}" class="delAppBtn">✕</span></span>`;
+    logEl.appendChild(row);
+  });
+  logEl.querySelectorAll('.delAppBtn').forEach(b=>{
+    b.addEventListener('click', async (e)=>{
+      const idx = parseInt(e.target.dataset.idx);
+      appLog.splice(idx,1);
+      await setStore('app-log', appLog);
+      renderAppLog();
+    });
+  });
+}
+
+document.getElementById('addAppBtn').addEventListener('click', async ()=>{
+  const company = document.getElementById('appCompany').value.trim();
+  const stage = document.getElementById('appStage').value;
+  if(!company) return;
+  appLog.push({company, stage});
+  await setStore('app-log', appLog);
+  document.getElementById('appCompany').value = '';
+  renderAppLog();
+});
+
+// ---- Money tab ----
+function fmtNaira(n){
+  return '₦' + Number(n).toLocaleString('en-NG');
+}
+
+function renderMoney(){
+  document.getElementById('debtTargetCell').textContent = fmtNaira(debtTarget);
+  document.getElementById('debtInput').value = debtTarget;
+  document.getElementById('saveRate').value = saveRate;
+
+  // income log list
+  const logEl = document.getElementById('incomeLog');
+  logEl.innerHTML = '';
+  incomeLog.slice().reverse().forEach((entry, revIdx)=>{
+    const idx = incomeLog.length - 1 - revIdx;
+    const saveAmt = Math.round(entry.amount * (saveRate/100));
+    const row = document.createElement('div');
+    row.className = 'log-item';
+    row.innerHTML = `<span>${entry.month}</span><span style="font-family:'IBM Plex Mono',monospace;">${fmtNaira(entry.amount)} <span style="color:var(--text-dimmer);">(save ${fmtNaira(saveAmt)})</span> <span style="cursor:pointer;color:var(--text-dimmer);margin-left:8px;" data-idx="${idx}" class="delBtn">✕</span></span>`;
+    logEl.appendChild(row);
+  });
+  logEl.querySelectorAll('.delBtn').forEach(b=>{
+    b.addEventListener('click', async (e)=>{
+      const idx = parseInt(e.target.dataset.idx);
+      incomeLog.splice(idx,1);
+      await setStore('income-log', incomeLog);
+      renderMoney();
+    });
+  });
+
+  // bars vs target
+  const target = 363000;
+  const barsEl = document.getElementById('incomeBars');
+  barsEl.innerHTML = '';
+  incomeLog.forEach(entry=>{
+    const pct = Math.min(150, (entry.amount/target)*100);
+    const row = document.createElement('div');
+    row.className = 'bar-row';
+    row.innerHTML = `
+      <div class="bar-label"><span>${entry.month}</span><span>${fmtNaira(entry.amount)} / ${fmtNaira(target)} target</span></div>
+      <div class="bar-track"><div class="bar-fill" style="width:${pct}%;"></div></div>
+    `;
+    barsEl.appendChild(row);
+  });
+}
+
+document.getElementById('recalcBtn').addEventListener('click', async ()=>{
+  const val = parseInt(document.getElementById('debtInput').value) || debtTarget;
+  debtTarget = val;
+  await setStore('debt-target', debtTarget);
+  renderMoney();
+});
+
+document.getElementById('saveRate').addEventListener('change', async (e)=>{
+  saveRate = parseInt(e.target.value) || 0;
+  await setStore('save-rate', saveRate);
+  renderMoney();
+});
+
+document.getElementById('addIncomeBtn').addEventListener('click', async ()=>{
+  const month = document.getElementById('incMonth').value.trim();
+  const amount = parseInt(document.getElementById('incAmount').value);
+  if(!month || !amount) return;
+  incomeLog.push({month, amount});
+  await setStore('income-log', incomeLog);
+  document.getElementById('incMonth').value = '';
+  document.getElementById('incAmount').value = '';
+  renderMoney();
+});
+
+// ---- Weekly tab ----
+function renderWeekly(){
+  const now = new Date();
+  const todayName = DAYS[now.getDay()];
+  const body = document.getElementById('weekTableBody');
+  body.innerHTML = '';
+  const order = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+  order.forEach(d=>{
+    const evening = isEveningFastDay(d);
+    const isEvang = evangDays.includes(d);
+    const isSunday = d === 'Sunday';
+    const isVigil = d === vigilDay;
+    const tr = document.createElement('tr');
+    if(d === todayName) tr.classList.add('today-col');
+    const study = isSunday ? '1h coding + 10min review' : (isEvang ? '2–3h Python' : '5h Python');
+    let ministry = isSunday ? 'Church / rest' : 'Prayer &amp; study, audio teachings';
+    if(isVigil) ministry += ' + Vigil';
+    const bodyRow = isSunday ? 'Rest' : (isEvang ? 'Walk + audio' : 'Lift 45min or walk');
+    tr.innerHTML = `
+      <td>${DAYS_SHORT[DAYS.indexOf(d)]}</td>
+      <td>${evening ? '6:00 PM' : 'Daily'}</td>
+      <td>${ministry}</td>
+      <td>${study}</td>
+      <td>${bodyRow}</td>
+    `;
+    body.appendChild(tr);
+  });
+}
+
+// ---- Systems tab ----
+function renderChecklist(){
+  const ul = document.getElementById('checklist');
+  ul.innerHTML = '';
+  CHECKLIST_ITEMS.forEach(item=>{
+    const li = document.createElement('li');
+    const checked = !!checklistState[item.id];
+    li.innerHTML = `
+      <input type="checkbox" id="chk-${item.id}" ${checked ? 'checked' : ''}>
+      <label for="chk-${item.id}" class="${checked ? 'done' : ''}">${item.text}</label>
+    `;
+    ul.appendChild(li);
+    li.querySelector('input').addEventListener('change', async (e)=>{
+      checklistState[item.id] = e.target.checked;
+      await setStore('checklist-state', checklistState);
+      renderChecklist();
+    });
+  });
+}
+
+document.getElementById('resetWeekBtn').addEventListener('click', async ()=>{
+  checklistState = {};
+  await setStore('checklist-state', checklistState);
+  renderChecklist();
+});
+
+// ---- Render all ----
+function renderAll(){
+  renderToday();
+  renderMoney();
+  renderGoals();
+  renderWeekly();
+  renderChecklist();
+  renderSleep();
+  renderAccountability();
+  renderPipeline();
+  renderBooks();
+  renderCsBooks();
+}
+
+(async function init(){
+  await loadState();
+  setupThirdFastDaySelect();
+  setupVigilDaySelect();
+  setupEvangPicker();
+  renderAll();
+  setInterval(renderToday, 60000);
+})();
 </script>
 </body>
 </html>
