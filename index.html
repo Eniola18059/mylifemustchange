@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Rule — Aug 29, 2026 → Aug 29, 2028</title>
+<title>The Rule — Oct 6, 2026 → Oct 6, 2028</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -271,7 +271,7 @@
 <div class="wrap">
 
   <header class="top">
-    <span class="eyebrow">The Rule &nbsp;·&nbsp; Aug 29, 2026 → Aug 29, 2028</span>
+    <span class="eyebrow">The Rule &nbsp;·&nbsp; Oct 6, 2026 → Oct 6, 2028</span>
     <h1 class="title">Ministry, money, and the work — in one place.</h1>
     <div class="subtitle">Not a document you'll rebuild for the sixth time. A dashboard you check.</div>
     <div class="cdown-row" id="cdownRow">
@@ -279,7 +279,7 @@
       <div class="cdown-unit"><span class="cdown-n" id="cd-h">—</span><span class="cdown-u">Hrs</span></div>
       <div class="cdown-unit"><span class="cdown-n" id="cd-m">—</span><span class="cdown-u">Min</span></div>
       <div class="cdown-unit"><span class="cdown-n" id="cd-s">—</span><span class="cdown-u">Sec</span></div>
-      <div class="cdown-label">until Aug 29, 2028</div>
+      <div class="cdown-label">until Oct 6, 2028</div>
     </div>
   </header>
 
@@ -311,14 +311,17 @@
         <div class="facts">
           <div class="fact-row"><span class="k">Day type</span><span class="v" id="dayType">—</span></div>
           <div class="fact-row"><span class="k">Study hours today</span><span class="v" id="studyHours">—</span></div>
+          <div class="fact-row"><span class="k">LeetCode</span><span class="v">Every day</span></div>
+          <div class="fact-row"><span class="k">SE / CS / Maths</span><span class="v" id="theoryToday">1h</span></div>
           <div class="fact-row"><span class="k">Days to laptop deadline</span><span class="v" id="laptopDays">—</span></div>
           <div class="fact-row"><span class="k">Days to debt deadline</span><span class="v" id="debtDays">—</span></div>
         </div>
       </div>
 
       <div class="inline-config">
-        <span>Your 3rd evening-fast day (Wed &amp; Sat already fixed):</span>
-        <select id="thirdFastDay"></select>
+        <span>Your 18h fast starts (last meal):</span>
+        <select id="fastStart"></select>
+        <span id="fastBreakNote"></span>
       </div>
       <div class="inline-config" style="margin-top:10px;">
         <span>Your vigil day (weekday — Sunday is now rest):</span>
@@ -331,14 +334,54 @@
     </div>
 
     <div class="panel">
+      <h2>Stack — right now</h2>
+      <div class="desc" id="stackNowDesc">—</div>
+      <div id="stackNow"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Daily habits</h2>
+      <div class="desc">Tick today's non-negotiables. Coding and LeetCode tick themselves from the logs below; the grid shows the last 14 days.</div>
+      <ul class="checklist" id="habitToday"></ul>
+      <div class="week-table-wrap" style="margin-top:14px;"><table class="week-table" id="habitGrid"></table></div>
+    </div>
+
+    <div class="panel">
+      <h2>Coding hours</h2>
+      <div class="desc">Target: 4h every day — about 3h building the current project and 1h studying the current tech (build &gt; watch). The loop: learn → build → get stuck → research → solve → improve → document. Log time as you finish a block — it adds to today's total.</div>
+      <div class="income-form">
+        <input type="number" id="codeHours" placeholder="Hours" step="0.25" style="width:100px;">
+        <button class="btn" id="addCodeBtn">Add to today</button>
+      </div>
+      <div class="fact-row" style="margin-top:10px;"><span class="k">Today</span><span class="v" id="codeToday">—</span></div>
+      <div class="fact-row"><span class="k">Last 7 days</span><span class="v" id="codeWeek">—</span></div>
+      <div class="bars" id="codeBars"></div>
+      <div class="log-list" id="codeLogList"></div>
+    </div>
+
+    <div class="panel">
+      <h2>LeetCode</h2>
+      <div class="desc">At least one serious problem a day (about 7 a week — the stack plan's target is 5–8). Set a time limit per problem, note what you got wrong, and retry the failures a week later. Today doesn't break the streak until the day ends.</div>
+      <div class="income-form">
+        <input type="number" id="leetCount" placeholder="Problems" min="1" step="1" style="width:100px;">
+        <button class="btn" id="addLeetBtn">Add to today</button>
+      </div>
+      <div class="fact-row" style="margin-top:10px;"><span class="k">Current streak</span><span class="v" id="leetStreak">—</span></div>
+      <div class="fact-row"><span class="k">Last 7 days</span><span class="v" id="leetWeek">—</span></div>
+      <div class="fact-row"><span class="k">Total solved</span><span class="v" id="leetTotal">—</span></div>
+      <div class="log-list" id="leetLogList"></div>
+    </div>
+
+    <div class="panel">
       <h2>Sleep</h2>
-      <div class="desc">Everything else here runs on willpower that sleep debt quietly erodes first. Target: 7–8h, phone out of the room.</div>
+      <div class="desc">Everything else here runs on willpower that sleep debt quietly erodes first. Target: 7–8h, phone out of the room. Earliest bedtime is 2:00 AM — so a 7–8h night means waking around 9–10 AM.</div>
       <div class="income-form">
         <input type="text" id="sleepDate" placeholder="Night, e.g. Mon 31 Aug" style="flex:1;min-width:140px;">
         <input type="number" id="sleepHours" placeholder="Hours" step="0.5" style="width:100px;">
         <button class="btn" id="addSleepBtn">Log</button>
       </div>
-      <div class="fact-row" style="margin-top:10px;"><span class="k">7-night average</span><span class="v" id="sleepAvg">—</span></div>
+      <div class="fact-row" style="margin-top:10px;"><span class="k">Earliest bedtime</span><span class="v">2:00 AM</span></div>
+      <div class="fact-row"><span class="k">7-night average</span><span class="v" id="sleepAvg">—</span></div>
       <div class="log-list" id="sleepLog"></div>
     </div>
 
@@ -361,24 +404,25 @@
   <!-- MONEY -->
   <div class="view" id="view-money">
     <div class="panel">
-      <h2>The next 6 months</h2>
-      <div class="desc">₦1.5m confirmed — adjust below anytime if it changes.</div>
+      <h2>The next 7 months</h2>
+      <div class="desc">₦2.5m in loans repaid over 6 months (Oct–Mar), a new laptop bought Nov–Jan, and an apartment rented by April — adjust below anytime if it changes.</div>
       <table>
         <tr><th>Goal</th><th>Target</th><th>Deadline</th><th>Monthly need</th></tr>
-        <tr><td>Debt cleared</td><td class="num" id="debtTargetCell">₦1.5m</td><td>6 months</td><td class="num">~₦250k</td></tr>
-        <tr><td>Laptop</td><td class="num">~₦450k</td><td>4 months</td><td class="num">~₦113k</td></tr>
-        <tr><td><b>Combined, months 1–4</b></td><td></td><td></td><td class="num"><b>~₦363k</b></td></tr>
+        <tr><td>Loans cleared</td><td class="num" id="debtTargetCell">₦2.5m</td><td>6 months (end Mar 2027)</td><td class="num" id="debtNeedCell">~₦417k</td></tr>
+        <tr><td>New laptop</td><td class="num">~₦450k</td><td>Nov 2026 – end Jan 2027</td><td class="num">~₦150k</td></tr>
+        <tr><td><b>Combined, Nov–Jan</b></td><td></td><td></td><td class="num" id="comboNeedCell"><b>~₦567k</b></td></tr>
+        <tr><td>Rent an apartment</td><td class="num" id="aptTargetCell">TBD</td><td>April 2027</td><td class="num">—</td></tr>
       </table>
       <div class="inline-config" style="margin-top:14px;">
         <span>Update debt estimate: ₦</span>
-        <input type="number" id="debtInput" value="1500000" step="10000" style="width:130px;">
+        <input type="number" id="debtInput" value="2500000" step="10000" style="width:130px;">
         <button class="btn small" id="recalcBtn">Recalculate</button>
       </div>
     </div>
 
     <div class="panel">
       <h2>Income vs. what's needed</h2>
-      <div class="desc">Log what actually came in each month. The bar shows it against the ~₦363k/mo target for months 1–4.</div>
+      <div class="desc">Log what actually came in each month. The bar shows it against the monthly target for Nov–Jan (loans ÷ 6 + laptop ÷ 3); from Feb it drops to loans ÷ 6 alone.</div>
       <div class="income-form">
         <input type="text" id="incMonth" placeholder="Month, e.g. Sep 2026" style="flex:1;min-width:140px;">
         <input type="number" id="incAmount" placeholder="₦ amount" style="width:130px;">
@@ -391,6 +435,41 @@
       </div>
       <div class="log-list" id="incomeLog"></div>
       <div class="bars" id="incomeBars"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Loan repayment</h2>
+      <div class="desc">Log every payment. Remaining and the per-month figure update against the end-of-March deadline.</div>
+      <div class="income-form">
+        <input type="text" id="loanMonth" placeholder="Paid on, e.g. Oct 2026" style="flex:1;min-width:140px;">
+        <input type="number" id="loanAmount" placeholder="₦ paid" style="width:130px;">
+        <button class="btn" id="addLoanBtn">Log</button>
+      </div>
+      <div class="fact-row" style="margin-top:10px;"><span class="k">Paid so far</span><span class="v" id="loanPaid">—</span></div>
+      <div class="fact-row"><span class="k">Remaining</span><span class="v" id="loanLeft">—</span></div>
+      <div class="fact-row"><span class="k">Needed per month to finish by end Mar</span><span class="v" id="loanPerMonth">—</span></div>
+      <div class="bars" id="loanBar"></div>
+      <div class="log-list" id="loanLogList"></div>
+    </div>
+
+    <div class="panel">
+      <h2>Apartment fund</h2>
+      <div class="desc">Set the rent you're aiming for, then log what goes into the fund. Target date is April 2027.</div>
+      <div class="inline-config" style="margin-top:0;">
+        <span>Rent target: ₦</span>
+        <input type="number" id="aptTargetInput" placeholder="Total needed" step="10000" style="width:150px;">
+        <button class="btn small" id="setAptBtn">Set</button>
+      </div>
+      <div class="income-form">
+        <input type="text" id="aptMonth" placeholder="Month, e.g. Nov 2026" style="flex:1;min-width:140px;">
+        <input type="number" id="aptAmount" placeholder="₦ added" style="width:130px;">
+        <button class="btn" id="addAptBtn">Log</button>
+      </div>
+      <div class="fact-row" style="margin-top:10px;"><span class="k">Saved so far</span><span class="v" id="aptSaved">—</span></div>
+      <div class="fact-row"><span class="k">Still needed</span><span class="v" id="aptLeft">—</span></div>
+      <div class="fact-row"><span class="k">Needed per month until April</span><span class="v" id="aptPerMonth">—</span></div>
+      <div class="bars" id="aptBar"></div>
+      <div class="log-list" id="aptLogList"></div>
     </div>
 
     <div class="panel">
@@ -417,6 +496,15 @@
     </div>
 
     <div class="panel">
+      <h2>Retainers</h2>
+      <div class="desc">Counted from the pipeline above — tap a client's stage tag to advance it (Lead → … → Retainer).</div>
+      <div class="fact-row"><span class="k">Active retainers</span><span class="v" id="retCount">—</span></div>
+      <div class="fact-row"><span class="k">Target</span><span class="v">8 minimum · 12 stretch</span></div>
+      <div class="fact-row"><span class="k">Est. monthly retainer income (₦75k–100k each)</span><span class="v" id="retIncome">—</span></div>
+      <div class="bars" id="retBar"></div>
+    </div>
+
+    <div class="panel">
       <h2>Two paths</h2>
       <div class="pillar-grid">
         <div class="pillar-card career">
@@ -431,7 +519,7 @@
           <h3>B — Resequence</h3>
           <ul>
             <li>Debt beats laptop — it compounds, the laptop doesn't</li>
-            <li>Two months short of target → push laptop to month 6–7</li>
+            <li>If a month falls short of the repayment target → push the laptop later, not the loans</li>
             <li>A cheaper interim laptop is fine if function, not prestige, is the need</li>
           </ul>
         </div>
@@ -451,10 +539,10 @@
         <div class="fact-row"><span class="k">Stretch, with a strong capstone + interview prep</span><span class="v">up to ~$2,500 / mo</span></div>
       </div>
       <div class="rule-block" style="margin-top:16px;">
-        <b>The honest conflict:</b> your full roadmap (Python → PHP/Laravel → JS/TS/React → cloud/system design → 3 capstones) now runs ~90–100 weeks at your adjusted study pace. That's ~20–23 months — it doesn't fit a 12-month job target as originally scoped.
+        <b>The honest conflict:</b> the full stack list (Python, FastAPI, PostgreSQL, React/TS, PHP/Laravel, Docker/CI/CD, then C, OS, networking and distributed systems) doesn't fit in 12 months. Year 1 stops at production-ready web engineering; the systems track is Year 2.
       </div>
       <div class="rule-block" style="border-left-color:var(--teal);">
-        <b>The realistic path that does fit 12 months:</b> narrow the pre-application scope to Python + FastAPI + PostgreSQL fundamentals plus <b>one</b> genuinely polished capstone (not three) — deployed, documented, demo-ready. Start applying from month 8–9 while still building, not after everything is "finished." PHP/Laravel, React, and cloud/system design continue in parallel and strengthen the profile post-hire, on the job or through the agency's real client work.
+        <b>The realistic path that does fit 12 months:</b> <b>one</b> product — the transport platform (React/TS → FastAPI → PostgreSQL) — taken from API to deployed, then rebuilt in Laravel and hardened with Docker/CI/CD. That is your three capstones, without three different stacks. Start monitoring listings at months 3–5, apply properly from months 7–12 while still building, not after everything is "finished." Systems work (C, OS, networking, distributed) is Year 2, on the job or alongside the agency's client work.
       </div>
     </div>
 
@@ -463,7 +551,8 @@
       <div class="desc">A date alone isn't a system — this is what actually gets applications out.</div>
       <ul class="checklist" style="list-style:none;padding:0;">
         <li style="padding:8px 0;border-bottom:1px dashed var(--border);font-size:13.5px;color:var(--text-dim);"><b style="color:var(--text);">CV and portfolio site kept current</b> — updated once per capstone milestone, not endlessly rebuilt</li>
-        <li style="padding:8px 0;border-bottom:1px dashed var(--border);font-size:13.5px;color:var(--text-dim);"><b style="color:var(--text);">Channels:</b> remote job boards (We Work Remotely, RemoteOK), Turing/similar platforms, LinkedIn, direct outreach to companies already hiring remote backend devs</li>
+        <li style="padding:8px 0;border-bottom:1px dashed var(--border);font-size:13.5px;color:var(--text-dim);"><b style="color:var(--text);">Channels:</b> remote job boards (We Work Remotely, RemoteOK), Turing/similar platforms, LinkedIn, direct outreach to companies already hiring remote backend devs. Local: LinkedIn Jobs, Indeed, Jobberman, MyJobMag and HotNigerianJobs (Lagos, Abuja, Port Harcourt and remote Nigerian roles)</li>
+        <li style="padding:8px 0;border-bottom:1px dashed var(--border);font-size:13.5px;color:var(--text-dim);"><b style="color:var(--text);">Timing:</b> start monitoring listings at months 3–5 (junior Python/backend, intern and graduate roles); the main first-job window is months 7–12. Search titles: Junior Software Engineer, Junior Python Developer, Junior Backend Developer, Junior Laravel/PHP Developer, Junior Full-Stack Developer, Graduate Software Engineer, Software Engineering Intern</li>
         <li style="padding:8px 0;font-size:13.5px;color:var(--text-dim);">Track every application below — effort becomes visible, not just felt</li>
       </ul>
       <div class="income-form" style="margin-top:14px;">
@@ -495,7 +584,7 @@
       <h2>Learn to drive</h2>
       <div class="desc">Light on time, easy to fit around everything else — doesn't need its own weekday slot.</div>
       <div class="facts">
-        <div class="fact-row"><span class="k">Target: license obtained by</span><span class="v">~Month 5 (Jan 2027)</span></div>
+        <div class="fact-row"><span class="k">Target: license obtained by</span><span class="v">~Month 5 (Feb 2027)</span></div>
         <div class="fact-row"><span class="k">Time cost</span><span class="v">2–3 lessons/week, weekends or evenings</span></div>
       </div>
       <ul class="checklist" style="list-style:none;padding:0;margin-top:10px;">
@@ -508,8 +597,10 @@
     <div class="panel">
       <h2>Net worth — 2-year trajectory</h2>
       <div class="desc">Base case, built only from the agency profit targets already set. This is modeling off your own numbers, not financial advice — real months will beat this or miss it.</div>
-      <div class="quarter"><span class="qtag">Now</span><div class="qbody">Starting point: <b>~–₦1.5m</b> (the debt). Nothing hidden here — this is the honest floor.</div></div>
-      <div class="quarter"><span class="qtag">M6</span><div class="qbody">Debt cleared, laptop bought. Net worth back to roughly <b>₦0</b> — the real win here is the reset, not a number.</div></div>
+      <div class="quarter"><span class="qtag">Now</span><div class="qbody">Starting point: <b>~–₦2.5m</b> (the debt). Nothing hidden here — this is the honest floor.</div></div>
+      <div class="quarter"><span class="qtag">M4</span><div class="qbody">New laptop bought by end of January — a one-off cost while the loans are still being repaid.</div></div>
+      <div class="quarter"><span class="qtag">M6</span><div class="qbody">Loans cleared by end of March. Net worth back to roughly <b>₦0</b> — the real win here is the reset, not a number.</div></div>
+      <div class="quarter"><span class="qtag">M7</span><div class="qbody">Apartment rented in April — another big one-off cost, so expect net worth to stay flat or dip before it climbs again.</div></div>
       <div class="quarter"><span class="qtag">M12</span><div class="qbody">6 months of ~25% saved on a growing profit line. Net worth around <b>~₦700k–900k</b>.</div></div>
       <div class="quarter"><span class="qtag">M18</span><div class="qbody">Saving rate holding, profit line up. Net worth around <b>~₦1.8m–2.2m</b>.</div></div>
       <div class="quarter"><span class="qtag">M24</span><div class="qbody">Base case (agency only): <b>~₦3.5m–4m</b>. Stretch case, if the remote role lands on the Goals timeline: meaningfully higher, but that's a second income stream layering on top, not a guarantee — track it separately once it's real income, not before.</div></div>
@@ -533,29 +624,30 @@
           <h3>Ministry</h3>
           <ul>
             <li>Pastoring + 3× weekly evangelism</li>
-            <li>4 audio teachings daily — stacked on walks/commute, not a separate block</li>
+            <li>3 audio teachings daily — stacked on walks/commute, not a separate block</li>
             <li>Prayer &amp; Bible study, 5h/day — split AM devotion + a dedicated block</li>
-            <li>Daily fast, extended to evening on Wed / Sat / your chosen day</li>
+            <li>18-hour fast every day</li>
           </ul>
         </div>
         <div class="pillar-card career">
           <span class="fixed-note" style="color:#D98A97;">Flexible — adjusted for real hours</span>
           <h3>Career / Money</h3>
           <ul>
-            <li>Python → PHP/Laravel (BE-301) → JS/TS/React → cloud/system design → 3 capstones</li>
-            <li>5h on non-evangelism days, 2–3h on evangelism days</li>
-            <li>Roadmap stretches ~63 → ~90–100 weeks — expected, not a failure</li>
+            <li>Python → FastAPI/PostgreSQL → React/TS → PHP/Laravel (BE-301) → Docker/CI/CD/Redis — one product (the transport platform) built, rebuilt and hardened as the 3 capstones; C/OS/distributed systems are Year 2</li>
+            <li>4h coding every day, evangelism days included</li>
+            <li>LeetCode daily — a short, consistent block, not a weekend binge</li>
+            <li>Year 1 ends production-ready; the longer systems track starts in Year 2 — expected, not a failure</li>
             <li>Agency work prioritized on lighter ministry days</li>
           </ul>
         </div>
         <div class="pillar-card body">
           <h3>Body</h3>
           <ul>
-            <li>3–5× training/week, 45 min, on non-fasting-hard days (Push / Pull / Legs / Full body+core split works well)</li>
+            <li>3–5× training/week, 45 min, timed shortly before the fast breaks (Push / Pull / Legs / Full body+core split works well)</li>
             <li>Daily walk — doubles as audio-teaching time</li>
             <li>Eating window matched to fast-break time; protein + veg first when breaking</li>
-            <li>No heavy lifting on evening-fast days</li>
-            <li>Track bodyweight + one lift number weekly — realistic pace is ~1–2kg/month, not faster</li>
+            <li>Lift near the start of the eating window, not deep into the fast</li>
+            <li>Track bodyweight + one lift number weekly — a steady pace is ~0.5kg/week (~2–3kg/month); much faster costs muscle and the energy you need for work</li>
           </ul>
         </div>
         <div class="pillar-card mind">
@@ -564,10 +656,10 @@
             <li>Fasting, vigil, and evangelism are already the training — protect them, don't add on top</li>
             <li>10-minute written reflection, weekly</li>
             <li>Reading — 20 min/night, starting with <i>Deep Work</i></li>
-            <li>SE/CS fundamentals refresh — 30 min/day</li>
+            <li>SE / CS / Maths — 1h/day</li>
             <li>French (Duolingo) — 10 min/day</li>
           </ul>
-          <div style="margin-top:10px;font-size:11.5px;color:var(--text-dimmer);">~1h/day added here — stack French into any idle 10 minutes rather than a fixed slot, and keep SE/CS and reading as two separate short blocks rather than merging them into the Python study time.</div>
+          <div style="margin-top:10px;font-size:11.5px;color:var(--text-dimmer);">~1.5h/day added here — stack French into any idle 10 minutes rather than a fixed slot, and keep SE/CS/Maths and reading as two separate short blocks rather than merging them into the coding time.</div>
         </div>
         <div class="pillar-card" style="border-top-color:#8FC7B3;">
           <h3>Presentation</h3>
@@ -606,8 +698,42 @@
     </div>
 
     <div class="panel">
-      <h2>SE / CS refresh — 30 min/day</h2>
-      <div class="desc">10 books, sequenced against your roadmap phases — fundamentals first, systems/cloud last.</div>
+      <h2>SE / CS / Maths — what the hour covers</h2>
+      <div class="desc">Refresh and deepen — you already have the CS degree. Mon/Thu CS, Tue/Fri Maths, Wed/Sat SE, Sunday is review: go back over the week's notes.</div>
+      <div class="pillar-grid">
+        <div class="pillar-card career">
+          <h3>Computer Science — Mon &amp; Thu</h3>
+          <ul>
+            <li>Data structures and algorithms (complexity, recursion, DP, graphs)</li>
+            <li>Databases: SQL, indexing, transactions, query optimization</li>
+            <li>Operating systems, networking, computer architecture</li>
+            <li>Distributed systems: replication, partitioning, fault tolerance</li>
+          </ul>
+        </div>
+        <div class="pillar-card mind">
+          <h3>Mathematics — Tue &amp; Fri</h3>
+          <ul>
+            <li>Discrete maths: logic, sets, proofs, graph theory, combinatorics</li>
+            <li>Probability and statistics</li>
+            <li>Linear algebra</li>
+            <li>Calculus (mostly if you drift toward AI/ML)</li>
+          </ul>
+        </div>
+        <div class="pillar-card body">
+          <h3>Software Engineering — Wed &amp; Sat</h3>
+          <ul>
+            <li>Architecture and design: clean architecture, SOLID, design patterns</li>
+            <li>Code quality: refactoring, code review, readability</li>
+            <li>Testing: unit, integration, end-to-end, TDD</li>
+            <li>Delivery: CI/CD, documentation, logging, deployment</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <h2>SE / CS / Maths — 1h/day</h2>
+      <div class="desc">10 books, sequenced against your roadmap phases — fundamentals first, systems/cloud last. Add your maths resources here too.</div>
       <div class="income-form">
         <input type="text" id="csBookTitle" placeholder="Book title" style="flex:1;min-width:160px;">
         <select id="csBookStatus">
@@ -631,19 +757,32 @@
             <li><b>Pull</b> — back, biceps</li>
             <li><b>Legs</b> — squats, lunges, calves</li>
             <li><b>Full body + core</b> — compound circuits, planks</li>
-            <li><b>Rest</b> on your evening-fast days — recovery is training, not laziness</li>
+            <li><b>Rest</b> on your vigil day and Sunday — recovery is training, not laziness</li>
           </ul>
         </div>
         <div class="pillar-card mind" style="border-top-color:var(--wine);">
           <h3 style="font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;color:#D98A97;">Fast → eat flow</h3>
           <ul>
-            <li>Fast breaks daily — extended to evening on your set days</li>
+            <li>18-hour fast daily, ~6-hour eating window — train near the start of the window</li>
             <li>Break with protein + vegetables first, not carbs</li>
-            <li>Eating window: protein every meal, controlled carbs, vegetables freely</li>
+            <li>Eating window: protein every meal (aim ~130–160g a day while losing weight), controlled carbs, vegetables freely — a modest deficit, not a feast</li>
+            <li>Mornings run fasted: water and unsweetened tea or coffee; if focus crashes for work, move the break earlier rather than pushing through</li>
             <li>Water throughout — this alone changes energy and skin more than anything else here</li>
           </ul>
         </div>
       </div>
+    </div>
+    <div class="panel">
+      <h2>Weekly body log</h2>
+      <div class="desc">Once a week: bodyweight plus one lift number. A steady pace is ~0.5kg a week, so judge the trend over 2–3 weeks, not one weigh-in.</div>
+      <div class="income-form">
+        <input type="number" id="bodyWeight" placeholder="Weight (kg)" step="0.1" style="width:130px;">
+        <input type="text" id="bodyLift" placeholder="Lift, e.g. Squat 80kg x5" style="flex:1;min-width:160px;">
+        <button class="btn" id="addBodyBtn">Log</button>
+      </div>
+      <div class="fact-row" style="margin-top:10px;"><span class="k">Latest</span><span class="v" id="bodyLatest">—</span></div>
+      <div class="fact-row"><span class="k">Change since first entry</span><span class="v" id="bodyChange">—</span></div>
+      <div class="log-list" id="bodyLogList"></div>
     </div>
   </div>
 
@@ -651,7 +790,7 @@
   <div class="view" id="view-weekly">
     <div class="panel">
       <h2>The weekly rule</h2>
-      <div class="desc">Updates live based on the evangelism days and 3rd fast day you set on the Today tab.</div>
+      <div class="desc">Updates live based on the evangelism days and fast settings you set on the Today tab.</div>
       <div class="week-table-wrap">
         <table class="week-table" id="weekTable">
           <thead>
@@ -730,41 +869,57 @@
         </div>
       </div>
     </div>
+    <div class="panel">
+      <h2>Backup</h2>
+      <div class="desc">Your data lives in this browser only. Tap "Show backup", copy the text somewhere safe, and paste it back here to restore on another device. Restoring replaces what is here.</div>
+      <textarea id="backupText" rows="4" placeholder="Backup text appears here — or paste a backup to restore" style="width:100%;background:var(--panel2);border:1px solid var(--border);color:var(--text);font-family:'IBM Plex Mono',monospace;font-size:11.5px;padding:8px 10px;border-radius:6px;"></textarea>
+      <div class="income-form">
+        <button class="btn small" id="showBackupBtn">Show backup</button>
+        <button class="btn ghost small" id="restoreBackupBtn">Restore from pasted text</button>
+        <span id="backupStatus" style="font-size:12px;color:var(--text-dim);"></span>
+      </div>
+    </div>
   </div>
 
   <!-- ROADMAP -->
   <div class="view" id="view-roadmap">
     <div class="panel">
+      <h2>Tech stack roadmap</h2>
+      <div class="desc">Picked from your engineer.log plan: one stack, one product. Windows overlap on purpose — the project sets the pace, so if you slip, stretch the window, not the hours.</div>
+      <div id="stackRoadmap"></div>
+    </div>
+
+    <div class="panel">
       <h2>The three phases</h2>
       <div class="desc">Zoomed out — what the 2 years actually look like in three chapters, not eight quarters.</div>
       <div class="pillar-grid">
         <div class="pillar-card ministry">
-          <span class="fixed-note">Aug 2026 – Apr 2027 (M1–8)</span>
+          <span class="fixed-note">Oct 2026 – May 2027 (M1–8)</span>
           <h3>Foundation</h3>
           <ul>
-            <li>Debt cleared, laptop bought — the financial reset happens here</li>
+            <li>Laptop bought by end of Jan, loans cleared by end of Mar, apartment rented in Apr — the financial reset happens here</li>
             <li>Driving license obtained</li>
-            <li>Python foundation solid, fasting/evangelism rhythm fully locked in</li>
+            <li>Python → FastAPI/PostgreSQL → React/TS: capstone #1 (the transport platform) deployed by ~month 6–8, fasting/evangelism rhythm fully locked in</li>
             <li>2–3 retainer clients signed, agency systems (deposit, testimonials, pipeline) running</li>
             <li>Net worth back to roughly ₦0 — not a loss, a reset</li>
           </ul>
         </div>
         <div class="pillar-card career">
-          <span class="fixed-note" style="color:#D98A97;">May 2027 – Dec 2027 (M9–16)</span>
+          <span class="fixed-note" style="color:#D98A97;">Jun 2027 – Jan 2028 (M9–16)</span>
           <h3>Momentum</h3>
           <ul>
-            <li>Capstone #1 live, applications to remote roles begin</li>
+            <li>Laravel rebuild and production hardening (capstones #2–3), applications to junior roles underway</li>
             <li>Masters (part-time) starts</li>
             <li>4–6 retainers running, profit climbing toward ~₦650k/mo</li>
-            <li>Reading/SE-CS/French/accent habits fully automatic, not effortful</li>
+            <li>Reading/SE-CS-Maths/French/accent habits fully automatic, not effortful</li>
             <li>Net worth crosses ~₦1.5m–2m</li>
           </ul>
         </div>
         <div class="pillar-card body">
-          <span class="fixed-note" style="color:#8FC7B3;">Jan 2028 – Aug 2028 (M17–24)</span>
+          <span class="fixed-note" style="color:#8FC7B3;">Feb 2028 – Oct 2028 (M17–24)</span>
           <h3>Harvest</h3>
           <ul>
-            <li>Capstones #2 and #3 live, remote role landed or agency at target income</li>
+            <li>Year 2 systems track (C, OS, networking, distributed systems), remote role landed or agency at target income</li>
             <li>8–12 retainer clients, profit at realistic ceiling (~₦700k–1.2m/mo)</li>
             <li>Masters coursework steady alongside everything else</li>
             <li>Net worth around ₦3.5m–4m base case</li>
@@ -777,15 +932,15 @@
     <div class="panel">
       <h2>Quarterly checkpoints</h2>
       <div class="desc">Eight quarters, three lanes: money, career, ministry/body.</div>
-      <div class="quarter"><span class="qtag">Q1</span><div class="qbody"><b>Aug–Oct '26</b> — 2+ retainer clients signed, income tracked weekly. Python foundation continues at adjusted pace. Fasting/evangelism rhythm holding, training habit formed.</div></div>
-      <div class="quarter"><span class="qtag">Q2</span><div class="qbody"><b>Nov '26–Jan '27</b> — Debt cleared or a confirmed path; laptop bought or resequenced. First project milestone hit. Reflection habit unbroken 60+ days.</div></div>
-      <div class="quarter"><span class="qtag">Q3</span><div class="qbody"><b>Feb–Apr '27</b> — Income floor stable at ₦400k+/mo. BE-301 (PHP/Laravel) underway via real client work.</div></div>
-      <div class="quarter"><span class="qtag">Q4</span><div class="qbody"><b>May–Jul '27</b> — Capstone #1 live. Full year of training log. <b>Masters application/enrollment window (format TBD — see note below).</b></div></div>
-      <div class="quarter"><span class="qtag">Q5–Q8</span><div class="qbody"><b>Aug '27–Aug '28</b> — Continued income growth. JS/TS/React, cloud/system design, capstones #2–3, remote applications begin. Masters coursework running part-time alongside. Ministry and discipline now fully steady-state.</div></div>
+      <div class="quarter"><span class="qtag">Q1</span><div class="qbody"><b>Oct–Dec '26</b> — 2+ retainer clients signed, income tracked weekly, laptop bought by end of January, loan repayment underway. Python fundamentals → web basics → first small API, at your adjusted pace. Fasting/evangelism rhythm holding, training habit formed.</div></div>
+      <div class="quarter"><span class="qtag">Q2</span><div class="qbody"><b>Jan–Mar '27</b> — Loans cleared by end of March; laptop already bought. Capstone #1 (the transport platform) deployed by about March. Reflection habit unbroken 60+ days.</div></div>
+      <div class="quarter"><span class="qtag">Q3</span><div class="qbody"><b>Apr–Jun '27</b> — Apartment rented in April. Income floor stable at ₦400k+/mo. BE-301 (PHP/Laravel) underway via real client work — rebuild part of the platform in Laravel.</div></div>
+      <div class="quarter"><span class="qtag">Q4</span><div class="qbody"><b>Jul–Sep '27</b> — Production hardening (Docker, CI/CD, Redis) on the platform; main first-job application window open. Full year of training log. <b>Masters application/enrollment window (format TBD — see note below).</b></div></div>
+      <div class="quarter"><span class="qtag">Q5–Q8</span><div class="qbody"><b>Oct '27–Oct '28</b> — Continued income growth. C, OS, networking and distributed systems, first open-source contributions, remote applications continue. Masters coursework running part-time alongside. Ministry and discipline now fully steady-state.</div></div>
     </div>
     <div class="panel">
       <div class="rule-block" style="border-left-color:var(--wine);">
-        <b>Masters — confirmed part-time/online:</b> placed starting ~month 12 (mid-2027). This is the format that's compatible with the job search push, the agency, and ministry all running at once — worth protecting that boundary if the specific program ever tempts you toward a heavier course load.
+        <b>Masters — confirmed part-time/online:</b> placed starting ~month 12 (~Sep 2027). This is the format that's compatible with the job search push, the agency, and ministry all running at once — worth protecting that boundary if the specific program ever tempts you toward a heavier course load.
       </div>
     </div>
     <div class="panel">
@@ -801,7 +956,49 @@
 <script>
 const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const DAYS_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-const FIXED_EVENING = ['Wednesday','Saturday'];
+
+// ---- Picked from the engineer.log stack plan ----
+const PLAN_START = new Date(2026, 9, 6); // Oct 6, 2026 = week 1
+const THEORY_ROT = {Mon:'Computer Science', Tue:'Mathematics', Wed:'Software Engineering', Thu:'Computer Science', Fri:'Mathematics', Sat:'Software Engineering', Sun:'Review'};
+const STACK_PHASES = [
+  {tag:'Wk 1–3', from:1, to:3, title:'Python fundamentals',
+   goal:"Get comfortable with the basics by building small things straight away, not by watching tutorials.",
+   build:"calculator, number-guessing game, unit converter, small CLI programs. Git and Linux basics start here too.",
+   res:[['Python Official Tutorial (sections 1–4)','https://docs.python.org/3/tutorial/'],['Automate the Boring Stuff (ch. 1–6)','https://automatetheboringstuff.com/']]},
+  {tag:'Wk 4–6', from:4, to:6, title:'Practical Python, Git/Linux, automation',
+   goal:"Start thinking like a programmer and automate real things.",
+   build:"contact manager, expense tracker, file organizer, log analyzer.",
+   res:[['Automate the Boring Stuff (ch. 7–15)','https://automatetheboringstuff.com/'],['Pro Git (ch. 1–3)','https://git-scm.com/book/en/v2']]},
+  {tag:'Wk 7–8', from:7, to:8, title:'Web basics, APIs, scraping',
+   goal:"Understand URLs, HTTP, requests and responses before touching FastAPI.",
+   build:"website or job-listing scraper, API client, price tracker.",
+   res:[['MDN: HTTP overview','https://developer.mozilla.org/en-US/docs/Web/HTTP/Overview'],['Requests docs','https://requests.readthedocs.io/']]},
+  {tag:'Wk 9–10', from:9, to:10, title:'Advanced Python, FastAPI intro, SQL basics',
+   goal:"Bridge from Python into backend engineering with one real API.",
+   build:"a small Task Management API: users, tasks, CRUD, validation, basic auth.",
+   res:[['FastAPI tutorial','https://fastapi.tiangolo.com/tutorial/'],['PostgreSQL Tutorial','https://www.postgresqltutorial.com/']]},
+  {tag:'Wk 10–16', from:10, to:16, title:'Backend: FastAPI + PostgreSQL',
+   goal:"Build the real thing: the Transport Management Platform backend.",
+   build:"customers, drivers, vehicles, bookings, rentals, roles, search, filtering, pagination. Do not wait for it to be perfect before starting the frontend.",
+   res:[['FastAPI docs','https://fastapi.tiangolo.com/'],['PostgreSQL docs','https://www.postgresql.org/docs/'],['SQLModel','https://sqlmodel.tiangolo.com/']]},
+  {tag:'Wk 13–22', from:13, to:22, title:'Frontend, overlapping the backend',
+   goal:"HTML, CSS and JavaScript, then TypeScript and React, wired to the API you are already building.",
+   build:"React + TypeScript → FastAPI → PostgreSQL: your first complete full-stack app (capstone #1).",
+   res:[['MDN Learn Web Development','https://developer.mozilla.org/en-US/docs/Learn'],['TypeScript Handbook','https://www.typescriptlang.org/docs/handbook/intro.html'],['React docs','https://react.dev/learn']]},
+  {tag:'Mo 6–9', from:23, to:39, title:'PHP + Laravel',
+   goal:"A second backend ecosystem, easier now that HTTP, REST, auth and SQL are familiar.",
+   build:"rebuild part of the transport platform: React → Laravel → PostgreSQL (capstone #2).",
+   res:[['Laravel Bootcamp','https://bootcamp.laravel.com/'],['Laravel docs','https://laravel.com/docs'],['PHP Manual','https://www.php.net/manual/en/']]},
+  {tag:'Mo 9–12', from:40, to:52, title:'Production engineering',
+   goal:"Make what you built production-like.",
+   build:"tests, Docker, CI/CD, logging, Redis caching and background jobs, deployed (capstone #3).",
+   res:[['The Twelve-Factor App','https://12factor.net/'],['Docker docs','https://docs.docker.com/'],['Refactoring.Guru: design patterns','https://refactoring.guru/design-patterns']]},
+  {tag:'Year 2', from:53, to:104, title:'Systems, OS, networking, distributed systems',
+   goal:"Use C to understand what is really happening under your code.",
+   build:"HTTP server, shell and memory allocator in C; a distributed job-processing system; start open source.",
+   res:[['Operating Systems: Three Easy Pieces','https://pages.cs.wisc.edu/~remzi/OSTEP/'],['Beej\'s Guide to Network Programming','https://beej.us/guide/bgnet/']]},
+];
+const STORE_KEYS = ['third-fast-day','fast-start-v3','vigil-day','evangelism-days','debt-target-v2','income-log','save-rate','checklist-state','sleep-log','acc-name','acc-week-checked','client-pipeline','app-log','book-log','cs-book-log','milestone-state','leet-log','code-log','habit-state','loan-log','apt-target','apt-log','body-log'];
 
 // ---- Tabs ----
 document.querySelectorAll('#tabs button').forEach(btn=>{
@@ -813,22 +1010,30 @@ document.querySelectorAll('#tabs button').forEach(btn=>{
   });
 });
 
-// ---- Storage helpers ----
+// ---- Storage helpers (window.storage in the chat preview, localStorage when published) ----
 async function getStore(key, fallback){
   try{
-    const r = await window.storage.get(key);
-    return r ? JSON.parse(r.value) : fallback;
+    if(window.storage){
+      const r = await window.storage.get(key);
+      return r ? JSON.parse(r.value) : fallback;
+    }
+    const v = localStorage.getItem('rule:'+key);
+    return v !== null ? JSON.parse(v) : fallback;
   }catch(e){ return fallback; }
 }
 async function setStore(key, value){
-  try{ await window.storage.set(key, JSON.stringify(value)); }catch(e){ console.error(e); }
+  try{
+    if(window.storage){ await window.storage.set(key, JSON.stringify(value)); }
+    else { localStorage.setItem('rule:'+key, JSON.stringify(value)); }
+  }catch(e){ console.error(e); }
 }
 
 // ---- State ----
-let thirdFastDay = 'Sunday';
-let vigilDay = 'Tuesday';
+let fastStart = -6; // hour the 18h fast starts (0 = midnight, -6 = 6 PM the night before)
+const FAST_HOURS = 18;
+let vigilDay = 'Friday';
 let evangDays = [];
-let debtTarget = 1500000;
+let debtTarget = 2500000;
 let incomeLog = [];
 let saveRate = 25;
 let checklistState = {};
@@ -840,34 +1045,44 @@ let appLog = [];
 let bookLog = [];
 let csBookLog = [];
 let milestoneState = {};
+let leetLog = {};
+let codeLog = {};
+let habitState = {};
+let loanLog = [];
+let aptTarget = 0;
+let aptLog = [];
+let bodyLog = [];
 
 const CHECKLIST_ITEMS = [
   {id:'retainer', text:'Pushed retainer conversion with at least 1 client this week'},
-  {id:'python', text:'Hit study hours on non-evangelism days'},
+  {id:'python', text:'Hit 4h coding every day'},
+  {id:'leetcode', text:'LeetCode done every day'},
+  {id:'secsmaths', text:'SE / CS / Maths 1h done every day'},
   {id:'training', text:'3 training sessions logged'},
   {id:'reflection', text:'Sunday 10-minute reflection done'},
   {id:'income', text:"This month's income logged in the Money tab"},
 ];
 
 const MILESTONE_ITEMS = [
-  {id:'debt', text:'Debt cleared (₦1.5m)'},
-  {id:'laptop', text:'Laptop bought'},
+  {id:'debt', text:'Loans cleared (₦2.5m) by end of March'},
+  {id:'laptop', text:'New laptop bought (by end of January)'},
+  {id:'apartment', text:'Apartment rented (April 2027)'},
   {id:'license', text:'Driving license obtained'},
-  {id:'capstone1', text:'Capstone #1 live and deployed'},
+  {id:'capstone1', text:'Capstone #1 live: transport platform (React/TS + FastAPI + PostgreSQL)'},
   {id:'applying', text:'Started applying for remote roles'},
   {id:'masters', text:'Masters enrollment started'},
-  {id:'capstone2', text:'Capstone #2 live and deployed'},
+  {id:'capstone2', text:'Capstone #2 live: Laravel rebuild of the platform'},
   {id:'retainers8', text:'8+ active retainer clients'},
-  {id:'capstone3', text:'Capstone #3 live and deployed'},
+  {id:'capstone3', text:'Capstone #3 live: platform production-ready (Docker, CI/CD, Redis)'},
   {id:'job', text:'Remote role landed'},
   {id:'networth', text:'Net worth ₦3.5m+ reached'},
 ];
 
 async function loadState(){
-  thirdFastDay = await getStore('third-fast-day', 'Sunday');
-  vigilDay = await getStore('vigil-day', 'Tuesday');
+  fastStart = await getStore('fast-start-v3', -6);
+  vigilDay = await getStore('vigil-day', 'Friday');
   evangDays = await getStore('evangelism-days', []);
-  debtTarget = await getStore('debt-target', 1500000);
+  debtTarget = await getStore('debt-target-v2', 2500000);
   incomeLog = await getStore('income-log', []);
   saveRate = await getStore('save-rate', 25);
   checklistState = await getStore('checklist-state', {});
@@ -908,6 +1123,13 @@ async function loadState(){
     {title:'Site Reliability Engineering — Google', status:'Up next'},
   ]);
   milestoneState = await getStore('milestone-state', {});
+  leetLog = await getStore('leet-log', {});
+  codeLog = await getStore('code-log', {});
+  habitState = await getStore('habit-state', {});
+  loanLog = await getStore('loan-log', []);
+  aptTarget = await getStore('apt-target', 0);
+  aptLog = await getStore('apt-log', []);
+  bodyLog = await getStore('body-log', []);
 }
 
 // ---- Today tab ----
@@ -929,22 +1151,6 @@ function setupVigilDaySelect(){
 }
 
 // ---- Today tab ----
-function setupThirdFastDaySelect(){
-  const sel = document.getElementById('thirdFastDay');
-  sel.innerHTML = '';
-  DAYS.forEach(d=>{
-    if(FIXED_EVENING.includes(d)) return;
-    const opt = document.createElement('option');
-    opt.value = d; opt.textContent = d;
-    if(d === thirdFastDay) opt.selected = true;
-    sel.appendChild(opt);
-  });
-  sel.addEventListener('change', async ()=>{
-    thirdFastDay = sel.value;
-    await setStore('third-fast-day', thirdFastDay);
-    renderAll();
-  });
-}
 
 function setupEvangPicker(){
   const box = document.getElementById('evangDays');
@@ -968,8 +1174,39 @@ function setupEvangPicker(){
   });
 }
 
+// The 18h fast runs every day
 function isEveningFastDay(dayName){
-  return FIXED_EVENING.includes(dayName) || dayName === thirdFastDay;
+  return true;
+}
+
+// 18-hour fast: breaks FAST_HOURS after it starts
+function fmtClock(h){
+  const hh = ((h % 24) + 24) % 24;
+  const suffix = hh >= 12 ? 'PM' : 'AM';
+  const h12 = hh % 12 === 0 ? 12 : hh % 12;
+  return h12 + ':00 ' + suffix;
+}
+function fastBreakHour(){ return fastStart + FAST_HOURS; }
+function updateFastNote(){
+  document.getElementById('fastBreakNote').textContent = '→ breaks at ' + fmtClock(fastBreakHour());
+}
+function setupFastStartSelect(){
+  const sel = document.getElementById('fastStart');
+  sel.innerHTML = '';
+  [-6,-5,-4,-3,-2,-1,0,1,2].forEach(h=>{
+    const opt = document.createElement('option');
+    opt.value = h;
+    opt.textContent = fmtClock(h) + (h < 0 ? ' (night before)' : '');
+    if(h === fastStart) opt.selected = true;
+    sel.appendChild(opt);
+  });
+  updateFastNote();
+  sel.addEventListener('change', async ()=>{
+    fastStart = parseInt(sel.value);
+    await setStore('fast-start-v3', fastStart);
+    updateFastNote();
+    renderAll();
+  });
 }
 
 function renderToday(){
@@ -978,23 +1215,25 @@ function renderToday(){
   document.getElementById('today-date').textContent = now.toLocaleDateString('en-GB', {weekday:'long', day:'numeric', month:'long'});
 
   const evening = isEveningFastDay(dayName);
-  document.getElementById('breakTime').textContent = evening ? '6:00 PM' : 'Daily';
-  document.getElementById('breakSub').textContent = evening ? 'extended fast' : 'standard fast';
+  document.getElementById('breakTime').textContent = evening ? fmtClock(fastBreakHour()) : 'No fast';
+  document.getElementById('breakSub').textContent = evening ? (FAST_HOURS + 'h fast') : 'eat normally';
   document.getElementById('dayType').textContent = evangDays.includes(dayName) ? 'Evangelism day' : 'Study day';
-  document.getElementById('studyHours').textContent = dayName === 'Sunday' ? '1h coding (rest day)' : (evangDays.includes(dayName) ? '2–3h Python' : '5h Python');
+  document.getElementById('studyHours').textContent = '4h coding';
+  document.getElementById('theoryToday').textContent = '1h · ' + THEORY_ROT[DAYS_SHORT[now.getDay()]];
 
-  // ring progress
-  const breakHour = evening ? 18 : 12;
-  const startHour = 0;
-  const nowFrac = now.getHours() + now.getMinutes()/60;
-  let pct = ((nowFrac - startHour) / (breakHour - startHour)) * 100;
-  pct = Math.max(0, Math.min(100, pct));
+  // ring progress (only on fast days)
+  let pct = 0;
+  if(evening){
+    const nowFrac = now.getHours() + now.getMinutes()/60;
+    pct = ((nowFrac - fastStart) / FAST_HOURS) * 100;
+    pct = Math.max(0, Math.min(100, pct));
+  }
   const ring = document.getElementById('fastRing');
   ring.style.background = `conic-gradient(var(--gold) ${pct}%, var(--panel2) ${pct}%)`;
 
   // deadlines
-  const laptopDeadline = new Date(2026, 11, 29); // Dec 29 2026 — 4 months from Aug 29 2026
-  const debtDeadline = new Date(2027, 1, 29); // ~6 months from Aug 29 2026 (rolls to Mar 1, 2027 — 2027 isn't a leap year)
+  const laptopDeadline = new Date(2027, 0, 31); // Jan 31 2027
+  const debtDeadline = new Date(2027, 2, 31); // Mar 31 2027
   const msDay = 1000*60*60*24;
   const laptopDays = Math.ceil((laptopDeadline - now)/msDay);
   const debtDays = Math.ceil((debtDeadline - now)/msDay);
@@ -1004,7 +1243,7 @@ function renderToday(){
 
 function renderGoals(){
   const now = new Date();
-  const jobDeadline = new Date(2027, 7, 29); // 12 months from Aug 29 2026
+  const jobDeadline = new Date(2027, 9, 6); // 12 months from Oct 6 2026
   const msDay = 1000*60*60*24;
   const jobDays = Math.ceil((jobDeadline - now)/msDay);
   document.getElementById('jobTargetDate').textContent = jobDeadline.toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
@@ -1069,14 +1308,27 @@ document.getElementById('accCheckWeek').addEventListener('change', async (e)=>{
 
 // ---- Client pipeline ----
 function renderPipeline(){
+  renderRetainers();
   const logEl = document.getElementById('clientPipeline');
   logEl.innerHTML = '';
   clientPipeline.slice().reverse().forEach((entry, revIdx)=>{
     const idx = clientPipeline.length - 1 - revIdx;
     const row = document.createElement('div');
     row.className = 'log-item';
-    row.innerHTML = `<span>${entry.name}</span><span><span class="tag gold">${entry.stage}</span> <span style="cursor:pointer;color:var(--text-dimmer);margin-left:8px;" data-idx="${idx}" class="delClientBtn">✕</span></span>`;
+    row.innerHTML = `<span>${entry.name}</span><span><span class="tag gold stageTag" data-idx="${idx}" style="cursor:pointer;" title="Tap to advance stage">${entry.stage}</span> <span style="cursor:pointer;color:var(--text-dimmer);margin-left:8px;" data-idx="${idx}" class="delClientBtn">✕</span></span>`;
     logEl.appendChild(row);
+  });
+  const STAGES = ['Lead','Proposal sent','Deposit paid','In progress','Delivered','Retainer'];
+  logEl.querySelectorAll('.stageTag').forEach(t=>{
+    t.addEventListener('click', async (e)=>{
+      const idx = parseInt(e.target.dataset.idx);
+      const i = STAGES.indexOf(clientPipeline[idx].stage);
+      if(i >= 0 && i < STAGES.length-1){
+        clientPipeline[idx].stage = STAGES[i+1];
+        await setStore('client-pipeline', clientPipeline);
+        renderPipeline();
+      }
+    });
   });
   logEl.querySelectorAll('.delClientBtn').forEach(b=>{
     b.addEventListener('click', async (e)=>{
@@ -1197,6 +1449,10 @@ function fmtNaira(n){
 
 function renderMoney(){
   document.getElementById('debtTargetCell').textContent = fmtNaira(debtTarget);
+  document.getElementById('debtNeedCell').textContent = '~' + fmtNaira(Math.round(debtTarget/6));
+  document.getElementById('comboNeedCell').innerHTML = '<b>~' + fmtNaira(Math.round(debtTarget/6 + 450000/3)) + '</b>';
+  renderLoan();
+  renderApartment();
   document.getElementById('debtInput').value = debtTarget;
   document.getElementById('saveRate').value = saveRate;
 
@@ -1221,7 +1477,7 @@ function renderMoney(){
   });
 
   // bars vs target
-  const target = 363000;
+  const target = Math.round(debtTarget/6 + 450000/3); // Nov–Jan: loans ÷ 6 + laptop ÷ 3
   const barsEl = document.getElementById('incomeBars');
   barsEl.innerHTML = '';
   incomeLog.forEach(entry=>{
@@ -1239,7 +1495,7 @@ function renderMoney(){
 document.getElementById('recalcBtn').addEventListener('click', async ()=>{
   const val = parseInt(document.getElementById('debtInput').value) || debtTarget;
   debtTarget = val;
-  await setStore('debt-target', debtTarget);
+  await setStore('debt-target-v2', debtTarget);
   renderMoney();
 });
 
@@ -1274,13 +1530,14 @@ function renderWeekly(){
     const isVigil = d === vigilDay;
     const tr = document.createElement('tr');
     if(d === todayName) tr.classList.add('today-col');
-    const study = isSunday ? '1h coding + 10min review' : (isEvang ? '2–3h Python' : '5h Python');
+    const rot = THEORY_ROT[DAYS_SHORT[DAYS.indexOf(d)]];
+    const study = '4h coding + LeetCode + 1h ' + rot + (isSunday ? ' + 10min review' : '');
     let ministry = isSunday ? 'Church / rest' : 'Prayer &amp; study, audio teachings';
     if(isVigil) ministry += ' + Vigil';
     const bodyRow = isSunday ? 'Rest' : (isEvang ? 'Walk + audio' : 'Lift 45min or walk');
     tr.innerHTML = `
       <td>${DAYS_SHORT[DAYS.indexOf(d)]}</td>
-      <td>${evening ? '6:00 PM' : 'Daily'}</td>
+      <td>${evening ? fmtClock(fastBreakHour()) : 'No fast'}</td>
       <td>${ministry}</td>
       <td>${study}</td>
       <td>${bodyRow}</td>
@@ -1335,6 +1592,377 @@ function renderMilestones(){
   });
 }
 
+// ---- Helpers for the logs ----
+function iso(d){
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function fmtDay(s){
+  return new Date(s + 'T00:00:00').toLocaleDateString('en-GB', {weekday:'short', day:'numeric', month:'short'});
+}
+function lastDays(n){
+  const out = [];
+  const now = new Date();
+  for(let i=0;i<n;i++){ out.push(iso(new Date(now.getFullYear(), now.getMonth(), now.getDate()-i))); }
+  return out; // index 0 = today
+}
+function sumLast(map, n){ return lastDays(n).reduce((s,k)=>s+Number(map[k]||0),0); }
+function fmtH(n){ return (Math.round(n*100)/100) + 'h'; }
+function monthsUntil(deadline){ return Math.max(1, Math.ceil((deadline - new Date())/(1000*60*60*24*30.44))); }
+function progressBar(label, right, pct){
+  return `<div class="bar-row"><div class="bar-label"><span>${label}</span><span>${right}</span></div><div class="bar-track"><div class="bar-fill" style="width:${Math.max(0,Math.min(100,pct))}%;"></div></div></div>`;
+}
+const DEL = `style="cursor:pointer;color:var(--text-dimmer);margin-left:8px;"`;
+const MONO = `style="font-family:'IBM Plex Mono',monospace;"`;
+
+// ---- Daily habits ----
+const HABITS = [
+  {id:'coding', text:'4h coding', short:'4h code', auto:true},
+  {id:'leetcode', text:'LeetCode', short:'LeetCode', auto:true},
+  {id:'secsmaths', text:'SE / CS / Maths 1h', short:'SE/CS/Maths'},
+  {id:'audio', text:'3 audio teachings', short:'Audio x3'},
+  {id:'fast', text:'Fast kept (18h)', short:'Fast', fastOnly:true},
+];
+function habitDone(id, key){
+  if(id === 'coding') return Number(codeLog[key]||0) >= 4;
+  if(id === 'leetcode') return Number(leetLog[key]||0) >= 1;
+  return !!(habitState[key] && habitState[key][id]);
+}
+function renderHabits(){
+  const todayKey = iso(new Date());
+  const todayFast = isEveningFastDay(DAYS[new Date().getDay()]);
+  const ul = document.getElementById('habitToday');
+  ul.innerHTML = '';
+  HABITS.forEach(h=>{
+    const li = document.createElement('li');
+    const done = habitDone(h.id, todayKey);
+    const disabled = !!h.auto || (h.fastOnly && !todayFast);
+    const note = h.auto ? ' <span style="color:var(--text-dimmer);font-size:12px;">(from the log below)</span>' : ((h.fastOnly && !todayFast) ? ' <span style="color:var(--text-dimmer);font-size:12px;">(no fast today)</span>' : '');
+    li.innerHTML = `<input type="checkbox" id="hab-${h.id}" ${done ? 'checked' : ''} ${disabled ? 'disabled' : ''}><label for="hab-${h.id}" class="${done ? 'done' : ''}">${h.text}${note}</label>`;
+    ul.appendChild(li);
+    if(!disabled){
+      li.querySelector('input').addEventListener('change', async (e)=>{
+        habitState[todayKey] = habitState[todayKey] || {};
+        habitState[todayKey][h.id] = e.target.checked;
+        await setStore('habit-state', habitState);
+        renderHabits();
+      });
+    }
+  });
+
+  const days = lastDays(14).reverse(); // oldest first
+  let html = '<thead><tr><th>Habit</th>' + days.map(k=>{
+    const d = new Date(k + 'T00:00:00');
+    return `<th class="${k===todayKey ? 'today-col' : ''}">${DAYS_SHORT[d.getDay()].slice(0,2)} ${d.getDate()}</th>`;
+  }).join('') + '<th>14d</th></tr></thead><tbody>';
+  HABITS.forEach(h=>{
+    let count = 0, applicable = 0;
+    const cells = days.map(k=>{
+      const d = new Date(k + 'T00:00:00');
+      const cls = k===todayKey ? 'today-col' : '';
+      const done = habitDone(h.id, k);
+      if(h.fastOnly && !isEveningFastDay(DAYS[d.getDay()]) && !done){
+        return `<td class="${cls}" style="color:var(--text-dimmer);">–</td>`;
+      }
+      applicable++;
+      if(done) count++;
+      return `<td class="${cls}" style="color:${done ? 'var(--gold)' : 'var(--text-dimmer)'};">${done ? '●' : '·'}</td>`;
+    }).join('');
+    html += `<tr><td>${h.short}</td>${cells}<td ${MONO}>${count}/${applicable}</td></tr>`;
+  });
+  html += '</tbody>';
+  document.getElementById('habitGrid').innerHTML = html;
+}
+
+// ---- Coding hours ----
+function renderCode(){
+  const key = iso(new Date());
+  const today = Number(codeLog[key]||0);
+  document.getElementById('codeToday').textContent = fmtH(today) + ' / 4h';
+  document.getElementById('codeWeek').textContent = fmtH(sumLast(codeLog,7)) + ' / 28h';
+  document.getElementById('codeBars').innerHTML = progressBar('Today', fmtH(today) + ' / 4h', (today/4)*100);
+  const logEl = document.getElementById('codeLogList');
+  logEl.innerHTML = '';
+  lastDays(7).forEach(k=>{
+    if(!codeLog[k]) return;
+    const row = document.createElement('div');
+    row.className = 'log-item';
+    row.innerHTML = `<span>${fmtDay(k)}</span><span ${MONO}>${fmtH(Number(codeLog[k]))} <span ${DEL} data-key="${k}" class="delCodeBtn">✕</span></span>`;
+    logEl.appendChild(row);
+  });
+  logEl.querySelectorAll('.delCodeBtn').forEach(b=>{
+    b.addEventListener('click', async (e)=>{
+      delete codeLog[e.target.dataset.key];
+      await setStore('code-log', codeLog);
+      renderCode();
+      renderHabits();
+    });
+  });
+}
+document.getElementById('addCodeBtn').addEventListener('click', async ()=>{
+  const h = parseFloat(document.getElementById('codeHours').value);
+  if(!(h > 0)) return;
+  const key = iso(new Date());
+  codeLog[key] = Number(codeLog[key]||0) + h;
+  await setStore('code-log', codeLog);
+  document.getElementById('codeHours').value = '';
+  renderCode();
+  renderHabits();
+});
+
+// ---- LeetCode ----
+function leetStreak(){
+  const cur = new Date();
+  cur.setHours(0,0,0,0);
+  if(!(Number(leetLog[iso(cur)]||0) > 0)) cur.setDate(cur.getDate()-1);
+  let n = 0;
+  while(Number(leetLog[iso(cur)]||0) > 0){ n++; cur.setDate(cur.getDate()-1); }
+  return n;
+}
+function renderLeet(){
+  const st = leetStreak();
+  document.getElementById('leetStreak').textContent = st + (st === 1 ? ' day' : ' days');
+  document.getElementById('leetWeek').textContent = sumLast(leetLog,7) + ' problems';
+  document.getElementById('leetTotal').textContent = Object.values(leetLog).reduce((s,v)=>s+Number(v),0);
+  const logEl = document.getElementById('leetLogList');
+  logEl.innerHTML = '';
+  lastDays(14).forEach(k=>{
+    if(!leetLog[k]) return;
+    const row = document.createElement('div');
+    row.className = 'log-item';
+    row.innerHTML = `<span>${fmtDay(k)}</span><span ${MONO}>${leetLog[k]} solved <span ${DEL} data-key="${k}" class="delLeetBtn">✕</span></span>`;
+    logEl.appendChild(row);
+  });
+  logEl.querySelectorAll('.delLeetBtn').forEach(b=>{
+    b.addEventListener('click', async (e)=>{
+      delete leetLog[e.target.dataset.key];
+      await setStore('leet-log', leetLog);
+      renderLeet();
+      renderHabits();
+    });
+  });
+}
+document.getElementById('addLeetBtn').addEventListener('click', async ()=>{
+  const n = parseInt(document.getElementById('leetCount').value);
+  if(!(n > 0)) return;
+  const key = iso(new Date());
+  leetLog[key] = Number(leetLog[key]||0) + n;
+  await setStore('leet-log', leetLog);
+  document.getElementById('leetCount').value = '';
+  renderLeet();
+  renderHabits();
+});
+
+// ---- Loan repayment ----
+function renderLoan(){
+  const paid = loanLog.reduce((s,e)=>s+e.amount,0);
+  const left = Math.max(0, debtTarget - paid);
+  document.getElementById('loanPaid').textContent = fmtNaira(paid);
+  document.getElementById('loanLeft').textContent = fmtNaira(left);
+  const deadline = new Date(2027, 2, 31);
+  let per;
+  if(left === 0) per = 'Cleared';
+  else if(new Date() > deadline) per = 'Past deadline';
+  else per = '~' + fmtNaira(Math.round(left / monthsUntil(deadline)));
+  document.getElementById('loanPerMonth').textContent = per;
+  document.getElementById('loanBar').innerHTML = progressBar('Repaid', fmtNaira(paid) + ' / ' + fmtNaira(debtTarget), (paid/debtTarget)*100);
+  const logEl = document.getElementById('loanLogList');
+  logEl.innerHTML = '';
+  loanLog.slice().reverse().forEach((entry, revIdx)=>{
+    const idx = loanLog.length - 1 - revIdx;
+    const row = document.createElement('div');
+    row.className = 'log-item';
+    row.innerHTML = `<span>${entry.month}</span><span ${MONO}>${fmtNaira(entry.amount)} <span ${DEL} data-idx="${idx}" class="delLoanBtn">✕</span></span>`;
+    logEl.appendChild(row);
+  });
+  logEl.querySelectorAll('.delLoanBtn').forEach(b=>{
+    b.addEventListener('click', async (e)=>{
+      loanLog.splice(parseInt(e.target.dataset.idx),1);
+      await setStore('loan-log', loanLog);
+      renderLoan();
+    });
+  });
+}
+document.getElementById('addLoanBtn').addEventListener('click', async ()=>{
+  const month = document.getElementById('loanMonth').value.trim();
+  const amount = parseInt(document.getElementById('loanAmount').value);
+  if(!month || !amount) return;
+  loanLog.push({month, amount});
+  await setStore('loan-log', loanLog);
+  document.getElementById('loanMonth').value = '';
+  document.getElementById('loanAmount').value = '';
+  renderLoan();
+});
+
+// ---- Apartment fund ----
+function renderApartment(){
+  document.getElementById('aptTargetCell').textContent = aptTarget ? fmtNaira(aptTarget) : 'TBD';
+  document.getElementById('aptTargetInput').value = aptTarget || '';
+  const saved = aptLog.reduce((s,e)=>s+e.amount,0);
+  document.getElementById('aptSaved').textContent = fmtNaira(saved);
+  if(!aptTarget){
+    document.getElementById('aptLeft').textContent = 'Set a target first';
+    document.getElementById('aptPerMonth').textContent = '—';
+    document.getElementById('aptBar').innerHTML = '';
+  } else {
+    const left = Math.max(0, aptTarget - saved);
+    const deadline = new Date(2027, 3, 1);
+    document.getElementById('aptLeft').textContent = fmtNaira(left);
+    let per;
+    if(left === 0) per = 'Fully funded';
+    else if(new Date() > deadline) per = 'Past April';
+    else per = '~' + fmtNaira(Math.round(left / monthsUntil(deadline)));
+    document.getElementById('aptPerMonth').textContent = per;
+    document.getElementById('aptBar').innerHTML = progressBar('Saved', fmtNaira(saved) + ' / ' + fmtNaira(aptTarget), (saved/aptTarget)*100);
+  }
+  const logEl = document.getElementById('aptLogList');
+  logEl.innerHTML = '';
+  aptLog.slice().reverse().forEach((entry, revIdx)=>{
+    const idx = aptLog.length - 1 - revIdx;
+    const row = document.createElement('div');
+    row.className = 'log-item';
+    row.innerHTML = `<span>${entry.month}</span><span ${MONO}>${fmtNaira(entry.amount)} <span ${DEL} data-idx="${idx}" class="delAptBtn">✕</span></span>`;
+    logEl.appendChild(row);
+  });
+  logEl.querySelectorAll('.delAptBtn').forEach(b=>{
+    b.addEventListener('click', async (e)=>{
+      aptLog.splice(parseInt(e.target.dataset.idx),1);
+      await setStore('apt-log', aptLog);
+      renderApartment();
+    });
+  });
+}
+document.getElementById('setAptBtn').addEventListener('click', async ()=>{
+  aptTarget = parseInt(document.getElementById('aptTargetInput').value) || 0;
+  await setStore('apt-target', aptTarget);
+  renderApartment();
+});
+document.getElementById('addAptBtn').addEventListener('click', async ()=>{
+  const month = document.getElementById('aptMonth').value.trim();
+  const amount = parseInt(document.getElementById('aptAmount').value);
+  if(!month || !amount) return;
+  aptLog.push({month, amount});
+  await setStore('apt-log', aptLog);
+  document.getElementById('aptMonth').value = '';
+  document.getElementById('aptAmount').value = '';
+  renderApartment();
+});
+
+// ---- Retainers (counted from the pipeline) ----
+function renderRetainers(){
+  const n = clientPipeline.filter(c=>c.stage === 'Retainer').length;
+  document.getElementById('retCount').textContent = n + ' active';
+  document.getElementById('retIncome').textContent = n ? (fmtNaira(n*75000) + ' – ' + fmtNaira(n*100000) + ' / mo') : '₦0';
+  document.getElementById('retBar').innerHTML = progressBar('Toward the 8 minimum', n + ' / 8', (n/8)*100);
+}
+
+// ---- Weekly body log ----
+function renderBody(){
+  const latestEl = document.getElementById('bodyLatest');
+  const changeEl = document.getElementById('bodyChange');
+  if(bodyLog.length){
+    const l = bodyLog[bodyLog.length-1];
+    latestEl.textContent = l.weight + 'kg' + (l.lift ? ' · ' + l.lift : '');
+    if(bodyLog.length > 1){
+      const diff = Math.round((l.weight - bodyLog[0].weight)*10)/10;
+      changeEl.textContent = (diff > 0 ? '+' : '') + diff + 'kg';
+    } else { changeEl.textContent = '—'; }
+  } else { latestEl.textContent = '—'; changeEl.textContent = '—'; }
+  const logEl = document.getElementById('bodyLogList');
+  logEl.innerHTML = '';
+  bodyLog.slice().reverse().forEach((entry, revIdx)=>{
+    const idx = bodyLog.length - 1 - revIdx;
+    const prev = idx > 0 ? bodyLog[idx-1] : null;
+    let delta = '';
+    if(prev){
+      const d = Math.round((entry.weight - prev.weight)*10)/10;
+      delta = ' <span style="color:var(--text-dimmer);">(' + (d > 0 ? '+' : '') + d + ')</span>';
+    }
+    const row = document.createElement('div');
+    row.className = 'log-item';
+    row.innerHTML = `<span>${fmtDay(entry.date)}${entry.lift ? ' — ' + entry.lift : ''}</span><span ${MONO}>${entry.weight}kg${delta} <span ${DEL} data-idx="${idx}" class="delBodyBtn">✕</span></span>`;
+    logEl.appendChild(row);
+  });
+  logEl.querySelectorAll('.delBodyBtn').forEach(b=>{
+    b.addEventListener('click', async (e)=>{
+      bodyLog.splice(parseInt(e.target.dataset.idx),1);
+      await setStore('body-log', bodyLog);
+      renderBody();
+    });
+  });
+}
+document.getElementById('addBodyBtn').addEventListener('click', async ()=>{
+  const weight = parseFloat(document.getElementById('bodyWeight').value);
+  const lift = document.getElementById('bodyLift').value.trim();
+  if(!(weight > 0)) return;
+  bodyLog.push({date: iso(new Date()), weight, lift});
+  await setStore('body-log', bodyLog);
+  document.getElementById('bodyWeight').value = '';
+  document.getElementById('bodyLift').value = '';
+  renderBody();
+});
+
+// ---- Stack roadmap (from engineer.log) ----
+function wkDate(w){ return new Date(PLAN_START.getFullYear(), PLAN_START.getMonth(), PLAN_START.getDate() + (w-1)*7); }
+function fmtD(d, withYear){
+  return d.toLocaleDateString('en-GB', withYear ? {day:'numeric', month:'short', year:'numeric'} : {day:'numeric', month:'short'});
+}
+function planWeek(){
+  const t = new Date();
+  const today = new Date(t.getFullYear(), t.getMonth(), t.getDate());
+  return Math.floor((today - PLAN_START) / (1000*60*60*24*7)) + 1;
+}
+function stackPhaseHtml(p){
+  const start = wkDate(p.from);
+  const end = wkDate(p.to + 1);
+  end.setDate(end.getDate() - 1);
+  const links = p.res.map(x=>`<a href="${x[1]}" target="_blank" rel="noopener" style="color:var(--gold);">${x[0]}</a>`).join(' · ');
+  return `<b>${p.title}</b> — ${fmtD(start)} – ${fmtD(end, true)}<br>${p.goal}<br><span style="color:var(--text-dimmer);">Build:</span> ${p.build}<br><span style="color:var(--text-dimmer);">Read / watch:</span> ${links}`;
+}
+function renderStack(){
+  const wk = planWeek();
+  document.getElementById('stackRoadmap').innerHTML = STACK_PHASES.map(p=>{
+    const now = wk >= p.from && wk <= p.to;
+    return `<div class="quarter"><span class="qtag">${p.tag}</span><div class="qbody">${stackPhaseHtml(p)}${now ? ' <span class="tag gold">now</span>' : ''}</div></div>`;
+  }).join('');
+  const nowEl = document.getElementById('stackNow');
+  const desc = document.getElementById('stackNowDesc');
+  if(wk < 1){
+    desc.textContent = 'Week 1 starts ' + fmtD(PLAN_START, true) + '.';
+    nowEl.innerHTML = '';
+    return;
+  }
+  const active = STACK_PHASES.filter(p=>wk >= p.from && wk <= p.to);
+  desc.textContent = 'Week ' + wk + ' of 104, from your engineer.log plan. Build more than you watch.';
+  nowEl.innerHTML = active.length
+    ? active.map(p=>`<div class="rule-block" style="border-left-color:var(--teal);margin-bottom:10px;">${stackPhaseHtml(p)}</div>`).join('')
+    : '<div style="font-size:13px;color:var(--text-dim);">Past the 2-year window — time for a new plan.</div>';
+}
+
+// ---- Backup (copy / paste, since downloads are blocked on published pages) ----
+async function showBackup(){
+  const out = {};
+  for(const k of STORE_KEYS){
+    const v = await getStore(k, undefined);
+    if(v !== undefined) out[k] = v;
+  }
+  document.getElementById('backupText').value = JSON.stringify(out);
+}
+async function restoreBackup(){
+  const status = document.getElementById('backupStatus');
+  const raw = document.getElementById('backupText').value.trim();
+  if(!raw){ status.textContent = 'Paste a backup first.'; return; }
+  let obj;
+  try{ obj = JSON.parse(raw); }catch(e){ status.textContent = 'That does not look like a valid backup.'; return; }
+  for(const k of STORE_KEYS){ if(k in obj) await setStore(k, obj[k]); }
+  status.textContent = 'Restored — reloading…';
+  setTimeout(()=>location.reload(), 600);
+}
+document.getElementById('showBackupBtn').addEventListener('click', async ()=>{
+  await showBackup();
+  document.getElementById('backupStatus').textContent = 'Backup ready — copy the text.';
+});
+document.getElementById('restoreBackupBtn').addEventListener('click', restoreBackup);
+
 // ---- Render all ----
 function renderAll(){
   renderToday();
@@ -1348,11 +1976,16 @@ function renderAll(){
   renderBooks();
   renderCsBooks();
   renderMilestones();
+  renderHabits();
+  renderCode();
+  renderLeet();
+  renderBody();
+  renderStack();
 }
 
 // ---- 2-year countdown ----
 function updateCountdown(){
-  const end = new Date(2028, 7, 29, 0, 0, 0); // Aug 29, 2028
+  const end = new Date(2028, 9, 6, 0, 0, 0); // Oct 6, 2028
   const now = new Date();
   const diff = end - now;
   if(diff <= 0){
@@ -1371,11 +2004,11 @@ function updateCountdown(){
 
 (async function init(){
   await loadState();
-  setupThirdFastDaySelect();
+  setupFastStartSelect();
   setupVigilDaySelect();
   setupEvangPicker();
   renderAll();
-  setInterval(renderToday, 60000);
+  setInterval(()=>{ renderToday(); renderHabits(); renderCode(); renderLeet(); renderStack(); }, 60000);
   updateCountdown();
   setInterval(updateCountdown, 1000);
 })();
