@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Rule — Oct 6, 2026 → Oct 6, 2028</title>
+<title>The Rule — Oct 10, 2026 → Oct 10, 2028</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -271,7 +271,7 @@
 <div class="wrap">
 
   <header class="top">
-    <span class="eyebrow">The Rule &nbsp;·&nbsp; Oct 6, 2026 → Oct 6, 2028</span>
+    <span class="eyebrow">The Rule &nbsp;·&nbsp; Oct 10, 2026 → Oct 10, 2028</span>
     <h1 class="title">Ministry, money, and the work — in one place.</h1>
     <div class="subtitle">Not a document you'll rebuild for the sixth time. A dashboard you check.</div>
     <div class="cdown-row" id="cdownRow">
@@ -279,7 +279,7 @@
       <div class="cdown-unit"><span class="cdown-n" id="cd-h">—</span><span class="cdown-u">Hrs</span></div>
       <div class="cdown-unit"><span class="cdown-n" id="cd-m">—</span><span class="cdown-u">Min</span></div>
       <div class="cdown-unit"><span class="cdown-n" id="cd-s">—</span><span class="cdown-u">Sec</span></div>
-      <div class="cdown-label">until Oct 6, 2028</div>
+      <div class="cdown-label">until Oct 10, 2028</div>
     </div>
   </header>
 
@@ -958,7 +958,7 @@ const DAYS = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Satur
 const DAYS_SHORT = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
 // ---- Picked from the engineer.log stack plan ----
-const PLAN_START = new Date(2026, 9, 6); // Oct 6, 2026 = week 1
+const PLAN_START = new Date(2026, 9, 10); // Oct 10, 2026 = week 1
 const THEORY_ROT = {Mon:'Computer Science', Tue:'Mathematics', Wed:'Software Engineering', Thu:'Computer Science', Fri:'Mathematics', Sat:'Software Engineering', Sun:'Review'};
 const STACK_PHASES = [
   {tag:'Wk 1–3', from:1, to:3, title:'Python fundamentals',
@@ -1243,7 +1243,7 @@ function renderToday(){
 
 function renderGoals(){
   const now = new Date();
-  const jobDeadline = new Date(2027, 9, 6); // 12 months from Oct 6 2026
+  const jobDeadline = new Date(2027, 9, 10); // 12 months from Oct 10 2026
   const msDay = 1000*60*60*24;
   const jobDays = Math.ceil((jobDeadline - now)/msDay);
   document.getElementById('jobTargetDate').textContent = jobDeadline.toLocaleDateString('en-GB', {day:'numeric', month:'long', year:'numeric'});
@@ -1985,7 +1985,7 @@ function renderAll(){
 
 // ---- 2-year countdown ----
 function updateCountdown(){
-  const end = new Date(2028, 9, 6, 0, 0, 0); // Oct 6, 2028
+  const end = new Date(2028, 9, 10, 0, 0, 0); // Oct 10, 2028
   const now = new Date();
   const diff = end - now;
   if(diff <= 0){
